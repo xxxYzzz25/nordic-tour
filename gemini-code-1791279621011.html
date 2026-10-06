@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>芬蘭 & 冰島極冰之旅 2026</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Vue 3 -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            nordic: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              400: '#38bdf8',
+              600: '#0284c7',
+              800: '#075985',
+              900: '#0c4a6e',
+              dark: '#0b1329'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 隱藏滾動條但保持橫向滾動 */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    /* 極冰玻璃質感效果 */
+    .ice-glass {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-800 antialiased font-sans min-h-screen flex justify-center selection:bg-sky-200">
+
+  <!-- App 容器（模擬手機畫幅） -->
+  <div id="app" class="w-full max-w-md bg-nordic-50 min-h-screen shadow-2xl relative flex flex-col pb-12 overflow-x-hidden border-x border-slate-800/20">
+
+    <!-- 頂部英雄視覺區 (Header) -->
+    <div class="relative w-full h-64 bg-nordic-dark overflow-hidden shrink-0">
+      <img 
+        src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=1000&q=80" 
+        alt="Nordic Aurora" 
+        class="w-full h-full object-cover object-center opacity-85 scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-nordic-dark via-slate-900/40 to-transparent"></div>
+
+      <!-- 標題資訊 -->
+      <div class="absolute top-8 left-6 right-6 text-white z-10">
+        <div class="flex items-center space-x-2 text-sky-300 text-xs font-semibold tracking-wider uppercase mb-1">
+          <i class="fa-solid fa-snowflake"></i>
+          <span>FINLAND & ICELAND 2026</span>
+        </div>
+        <h1 class="text-2xl font-extrabold text-white tracking-tight leading-tight drop-shadow">北歐極光冰雪之旅</h1>
+        <p class="text-xs text-sky-100/80 mt-1">12/12 - 12/26 • 芬蘭 & 冰島 15 天極地冒險</p>
+      </div>
+
+      <!-- 右上方 Tab 按鈕 -->
+      <div class="absolute top-8 right-5 z-20 flex space-x-1.5 p-1 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/20 shadow-lg">
+        <button 
+          @click="currentTab = 'itinerary'"
+          :class="currentTab === 'itinerary' ? 'bg-sky-500 text-white shadow-md' : 'text-slate-300 hover:text-white'"
+          class="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center space-x-1.5"
+        >
+          <i class="fa-solid fa-location-dot"></i>
+          <span>行程</span>
+        </button>
+        <button 
+          @click="currentTab = 'info'"
+          :class="currentTab === 'info' ? 'bg-sky-500 text-white shadow-md' : 'text-slate-300 hover:text-white'"
+          class="px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 flex items-center space-x-1.5"
+        >
+          <i class="fa-solid fa-circle-info"></i>
+          <span>資訊</span>
+        </button>
+      </div>
+
+      <!-- 白底圓弧銜接區塊 -->
+      <div class="absolute bottom-0 inset-x-0 h-10 bg-nordic-50 rounded-t-[2.5rem] shadow-md"></div>
+    </div>
+
+    <!-- 主內容區域 -->
+    <main class="flex-1 px-4 -mt-6 z-20">
+
+      <!-- ==================== 1. 每日行程表頁面 ==================== -->
+      <div v-if="currentTab === 'itinerary'" class="space-y-4">
+
+        <!-- 橫向滑動日期選單 (含兩側導覽箭頭，徹底解決滑動問題) -->
+        <div class="relative flex items-center bg-white/90 backdrop-blur-md rounded-2xl p-1.5 shadow-sm border border-sky-100">
+          <!-- 左切換按鈕 -->
+          <button 
+            @click="scrollDates('left')" 
+            class="shrink-0 w-7 h-9 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-sky-100 text-sky-600 text-xs shadow-2xs z-10 active:scale-95 transition-all"
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
+          <!-- 15 天日期橫向捲軸區域 -->
+          <div ref="dateScrollContainer" class="flex space-x-2 overflow-x-auto no-scrollbar py-1 px-1.5 scroll-smooth flex-1">
+            <button 
+              v-for="(day, index) in itineraryData" 
+              :key="index"
+              @click="selectDay(index)"
+              :class="selectedDayIndex === index 
+                ? 'bg-gradient-to-br from-sky-500 to-nordic-600 text-white shadow-md shadow-sky-500/30 scale-105' 
+                : 'bg-slate-100/80 text-slate-600 hover:bg-sky-50 hover:text-sky-600'"
+              class="flex-shrink-0 w-13 py-2 rounded-xl flex flex-col items-center justify-center transition-all duration-200"
+            >
+              <!-- 星期（大字） -->
+              <span class="text-sm font-black uppercase tracking-wide leading-none mb-1">
+                {{ day.weekday }}
+              </span>
+              <!-- 日期數字 -->
+              <span class="text-xs font-bold opacity-90 leading-none">
+                {{ day.dateNum }}
+              </span>
+            </button>
+          </div>
+
+          <!-- 右切換按鈕 -->
+          <button 
+            @click="scrollDates('right')" 
+            class="shrink-0 w-7 h-9 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-sky-100 text-sky-600 text-xs shadow-2xs z-10 active:scale-95 transition-all"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- 天氣資訊卡片 -->
+        <div class="ice-glass rounded-2xl p-3.5 shadow-sm flex items-center justify-between border-l-4 border-l-sky-400">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center text-sky-600 text-xl shadow-inner">
+              <i :class="getWeatherIcon(currentDay.weather.condition)"></i>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-nordic-900 uppercase tracking-wider">{{ currentDay.location }}</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700 font-bold">Day {{ selectedDayIndex + 1 }} / 15</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">{{ currentDay.weather.desc }}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-lg font-black text-slate-800 leading-none">{{ currentDay.weather.temp }}°C</div>
+            <div class="text-[11px] text-slate-400 mt-1">體感 {{ currentDay.weather.feelsLike }}°C</div>
+          </div>
+        </div>
+
+        <!-- 下拉分類欄 -->
+        <div class="flex items-center justify-between px-1">
+          <label class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center space-x-1">
+            <i class="fa-solid fa-filter text-sky-500"></i>
+            <span>行程分類顯示：</span>
+          </label>
+          <select 
+            v-model="selectedCategory"
+            class="text-xs bg-white border border-sky-200 rounded-xl px-3 py-1.5 font-semibold text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-400"
+          >
+            <option value="全部">全部行程 ({{ currentDayItems.length }})</option>
+            <option value="景點">景點 🏔️</option>
+            <option value="住宿">住宿 🏨</option>
+            <option value="美食">美食 🍕</option>
+            <option value="購物">購物 🛍️</option>
+            <option value="航班">航班 ✈️</option>
+            <option value="其他">其他 📍</option>
+          </select>
+        </div>
+
+        <!-- 行程卡片清單 -->
+        <div class="space-y-3">
+          <div v-for="(item, idx) in filteredItems" :key="item.id" class="group relative">
+            
+            <!-- 上個行程到此行程的交通時間計算 -->
+            <div v-if="idx === 0" class="my-2 flex items-center justify-center space-x-2 text-[11px] text-slate-400 bg-sky-100/50 py-1 px-3 rounded-full w-max mx-auto border border-sky-200/50">
+              <i class="fa-solid fa-hotel text-sky-500"></i>
+              <span>從前一日住宿/出發地 前往第一站 (約 {{ item.transitTime || '15' }} 分鐘)</span>
+            </div>
+
+            <div v-else class="my-2.5 flex items-center justify-between px-4 text-xs text-slate-500">
+              <div class="flex-1 h-[1px] bg-sky-200/70"></div>
+              <div class="mx-3 flex items-center space-x-1.5 bg-white px-3 py-1 rounded-full shadow-2xs border border-sky-100 text-[11px]">
+                <i :class="getTransitIcon(item.transitMode)" class="text-sky-500"></i>
+                <span class="font-medium text-slate-600">約 {{ item.transitTime || '20' }} 分鐘</span>
+                <button @click="toggleTransitMode(item)" class="text-slate-400 hover:text-sky-600 ml-1">
+                  <i class="fa-solid fa-rotate text-[10px]"></i>
+                </button>
+              </div>
+              <div class="flex-1 h-[1px] bg-sky-200/70"></div>
+            </div>
+
+            <!-- 第一天第一個項目 (航班卡片樣式) -->
+            <div 
+              v-if="item.category === '航班'"
+              class="bg-gradient-to-br from-nordic-900 to-slate-900 text-white rounded-2xl p-4 shadow-lg border border-sky-500/30 relative overflow-hidden"
+            >
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded-full bg-sky-500/30 text-sky-300 text-[10px] font-extrabold uppercase border border-sky-400/30">
+                  <i class="fa-solid fa-plane mr-1"></i>航班 / 長途交通
+                </span>
+                <div class="flex items-center space-x-2">
+                  <button @click="openEditModal(item)" class="text-slate-300 hover:text-white text-xs"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button @click="moveItemUp(idx)" :disabled="idx === 0" class="text-slate-400 hover:text-white disabled:opacity-30"><i class="fa-solid fa-arrow-up"></i></button>
+                  <button @click="moveItemDown(idx)" :disabled="idx === filteredItems.length - 1" class="text-slate-400 hover:text-white disabled:opacity-30"><i class="fa-solid fa-arrow-down"></i></button>
+                </div>
+              </div>
+
+              <h3 class="text-base font-bold text-white mb-1">{{ item.name }}</h3>
+              <p class="text-xs text-sky-200/80 mb-3" v-if="item.notes">{{ item.notes }}</p>
+
+              <div class="bg-white/10 rounded-xl p-2.5 backdrop-blur-sm flex items-center justify-between text-xs">
+                <div>
+                  <div class="text-[10px] text-sky-200">時間 / 班次</div>
+                  <div class="font-semibold">{{ item.time || '參照行程表' }}</div>
+                </div>
+                <a 
+                  :href="getMapUrl(item.name)" 
+                  target="_blank"
+                  class="bg-sky-500 hover:bg-sky-400 text-white px-3 py-1.5 rounded-lg font-bold text-xs flex items-center space-x-1 shadow-sm transition-all"
+                >
+                  <i class="fa-solid fa-location-arrow"></i>
+                  <span>導航</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- 標準行程卡片 -->
+            <div 
+              v-else 
+              class="ice-glass rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-300 relative border border-white/80"
+            >
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2">
+                  <span :class="getCategoryBadgeClass(item.category)" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide">
+                    {{ item.category }}
+                  </span>
+                  <span v-if="item.time" class="text-xs text-slate-500 font-semibold">
+                    <i class="fa-regular fa-clock mr-1 text-sky-500"></i>{{ item.time }}
+                  </span>
+                </div>
+
+                <div class="flex items-center space-x-2 text-slate-400">
+                  <button @click="moveItemUp(idx)" :disabled="idx === 0" class="hover:text-sky-600 disabled:opacity-20"><i class="fa-solid fa-chevron-up text-xs"></i></button>
+                  <button @click="moveItemDown(idx)" :disabled="idx === filteredItems.length - 1" class="hover:text-sky-600 disabled:opacity-20"><i class="fa-solid fa-chevron-down text-xs"></i></button>
+                  <button @click="openEditModal(item)" class="hover:text-sky-600 text-xs ml-1"><i class="fa-solid fa-pen"></i></button>
+                </div>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-800 mt-2 flex items-center justify-between">
+                <span>{{ item.name }}</span>
+              </h3>
+
+              <div class="mt-2.5 space-y-1.5 text-xs text-slate-600">
+                <p v-if="item.hours" class="flex items-center space-x-1.5">
+                  <i class="fa-solid fa-door-open text-sky-500 w-4"></i>
+                  <span><strong>營業時間：</strong>{{ item.hours }}</span>
+                </p>
+                <p v-if="item.ticket && item.category === '景點'" class="flex items-center space-x-1.5">
+                  <i class="fa-solid fa-ticket text-amber-500 w-4"></i>
+                  <span><strong>門票費用：</strong>{{ item.ticket }}</span>
+                </p>
+                <p v-if="item.notes" class="flex items-start space-x-1.5 text-slate-500 bg-slate-100/60 p-2 rounded-xl mt-2">
+                  <i class="fa-solid fa-sparkles text-amber-400 w-4 mt-0.5"></i>
+                  <span class="flex-1 leading-relaxed">{{ item.notes }}</span>
+                </p>
+              </div>
+
+              <div class="mt-3.5 pt-2.5 border-t border-slate-100 flex justify-end">
+                <a 
+                  :href="getMapUrl(item.name)" 
+                  target="_blank"
+                  class="bg-nordic-600 hover:bg-nordic-800 text-white px-3.5 py-1.5 rounded-xl font-bold text-xs flex items-center space-x-1.5 shadow-sm active:scale-95 transition-all"
+                >
+                  <i class="fa-solid fa-map-location-dot"></i>
+                  <span>Google 地圖導航</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 若當天無行程 -->
+          <div v-if="filteredItems.length === 0" class="text-center py-12 text-slate-400 ice-glass rounded-2xl">
+            <i class="fa-solid fa-compass-drafting text-4xl mb-2 text-sky-300"></i>
+            <p class="text-xs font-semibold">該分類下無行程，點擊右下角「+」新增！</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== 2. 資訊頁面 (Info Tab) ==================== -->
+      <div v-if="currentTab === 'info'" class="space-y-5 pb-8">
+
+        <!-- 匯率即時換算器 -->
+        <div class="ice-glass rounded-2xl p-4 shadow-sm border border-sky-100">
+          <h2 class="text-sm font-extrabold text-nordic-900 flex items-center space-x-2 mb-3">
+            <i class="fa-solid fa-calculator text-sky-500"></i>
+            <span>北歐貨幣 ➔ 新台幣 (TWD) 換算</span>
+          </h2>
+          
+          <div class="space-y-3">
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="text-[11px] font-bold text-slate-500">選擇外幣</label>
+                <select v-model="calcCurrency" class="w-full mt-1 bg-white border border-sky-200 rounded-xl p-2 text-xs font-bold text-slate-700">
+                  <option value="EUR">歐元 (EUR) - 芬蘭</option>
+                  <option value="ISK">冰島克朗 (ISK) - 冰島</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[11px] font-bold text-slate-500">輸入金額</label>
+                <input 
+                  type="number" 
+                  v-model.number="calcAmount" 
+                  placeholder="例如: 100"
+                  class="w-full mt-1 bg-white border border-sky-200 rounded-xl p-2 text-xs font-bold text-slate-800"
+                />
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-sky-500 to-nordic-600 text-white rounded-xl p-3 flex items-center justify-between shadow-md">
+              <span class="text-xs font-medium">預估折合新台幣：</span>
+              <span class="text-lg font-black tracking-tight">NT$ {{ calculatedTwd }}</span>
+            </div>
+            <p class="text-[10px] text-slate-400 text-right">參考匯率：1 EUR ≈ 35.2 TWD | 1,000 ISK ≈ 230 TWD</p>
+          </div>
+        </div>
+
+        <!-- 航班資訊 -->
+        <div class="space-y-3">
+          <h2 class="text-sm font-extrabold text-nordic-900 flex items-center space-x-2">
+            <i class="fa-solid fa-plane-up text-sky-500"></i>
+            <span>航班資訊 (Flight Info)</span>
+          </h2>
+
+          <div class="bg-slate-900 text-white rounded-2xl p-4 shadow-md border border-slate-700">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-2 mb-3">
+              <span class="text-xs font-bold text-sky-400">去程 • 華航 / 芬蘭航空</span>
+              <span class="text-[10px] bg-sky-900 text-sky-200 px-2 py-0.5 rounded-full">CI / AY</span>
+            </div>
+            <div class="flex items-center justify-between text-center">
+              <div>
+                <div class="text-xl font-black text-white">TPE</div>
+                <div class="text-[10px] text-slate-400">台北桃園</div>
+                <div class="text-xs font-semibold text-sky-300 mt-1">12/12 23:25</div>
+              </div>
+              <div class="flex flex-col items-center px-2">
+                <span class="text-[10px] text-slate-400 mb-1">經羅馬轉機</span>
+                <i class="fa-solid fa-plane text-sky-400 text-sm"></i>
+                <span class="text-[10px] text-slate-400 mt-1">約 15 小時</span>
+              </div>
+              <div>
+                <div class="text-xl font-black text-white">HEL</div>
+                <div class="text-[10px] text-slate-400">赫爾辛基</div>
+                <div class="text-xs font-semibold text-sky-300 mt-1">12/13 15:10</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800 text-white rounded-2xl p-4 shadow-md border border-slate-700">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-2 mb-3">
+              <span class="text-xs font-bold text-sky-400">極地跨國航班</span>
+              <span class="text-[10px] bg-emerald-900 text-emerald-200 px-2 py-0.5 rounded-full">北歐內陸</span>
+            </div>
+            <div class="flex items-center justify-between text-center">
+              <div>
+                <div class="text-xl font-black text-white">RVN</div>
+                <div class="text-[10px] text-slate-400">羅瓦涅米</div>
+                <div class="text-xs font-semibold text-sky-300 mt-1">12/18 05:20</div>
+              </div>
+              <div class="flex flex-col items-center px-2">
+                <i class="fa-solid fa-plane text-sky-400 text-sm"></i>
+                <span class="text-[10px] text-slate-400 mt-1">3.5 小時</span>
+              </div>
+              <div>
+                <div class="text-xl font-black text-white">KEF</div>
+                <div class="text-[10px] text-slate-400">雷克雅維克</div>
+                <div class="text-xs font-semibold text-sky-300 mt-1">12/18 09:15</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 text-white rounded-2xl p-4 shadow-md border border-slate-700">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-2 mb-3">
+              <span class="text-xs font-bold text-sky-400">回程 • 冰島航 / 華航</span>
+              <span class="text-[10px] bg-sky-900 text-sky-200 px-2 py-0.5 rounded-full">經倫敦轉機</span>
+            </div>
+            <div class="flex items-center justify-between text-center">
+              <div>
+                <div class="text-xl font-black text-white">KEF</div>
+                <div class="text-[10px] text-slate-400">雷克雅維克</div>
+                <div class="text-xs font-semibold text-sky-300 mt-1">12/26 16:20</div>
+              </div>
+              <div class="flex flex-col items-center px-2">
+                <i class="fa-solid fa-plane-arrival text-sky-400 text-sm"></i>
+                <span class="text-[10px] text-slate-400 mt-1">隔日抵達</span>
+              </div>
+              <div>
+                <div class="text-xl font-black text-white">TPE</div>
+                <div class="text-[10px] text-slate-400">台北桃園</div>
+                <div class="text-xs font-semibold text-sky-300 mt-1">12/27 18:35</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 住宿資訊卡片 -->
+        <div class="space-y-3">
+          <h2 class="text-sm font-extrabold text-nordic-900 flex items-center space-x-2">
+            <i class="fa-solid fa-hotel text-sky-500"></i>
+            <span>行程飯店清單 (Hotels)</span>
+          </h2>
+
+          <div v-for="hotel in hotelList" :key="hotel.name" class="ice-glass rounded-2xl p-3.5 shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-slate-800">{{ hotel.name }}</h3>
+              <span class="text-[10px] bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full font-bold">{{ hotel.nights }}</span>
+            </div>
+            <p class="text-[11px] text-slate-500 flex items-center space-x-1">
+              <i class="fa-solid fa-location-dot text-sky-500"></i>
+              <span>{{ hotel.address }}</span>
+            </p>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[11px] text-slate-600 font-medium"><i class="fa-solid fa-phone mr-1 text-slate-400"></i>{{ hotel.phone }}</span>
+              <a :href="getMapUrl(hotel.name)" target="_blank" class="text-xs text-sky-600 font-bold hover:underline flex items-center space-x-1">
+                <span>導航至飯店</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 租車資訊 -->
+        <div class="ice-glass rounded-2xl p-4 shadow-sm border border-sky-100 space-y-2">
+          <h2 class="text-sm font-extrabold text-nordic-900 flex items-center space-x-2">
+            <i class="fa-solid fa-car text-sky-500"></i>
+            <span>冰島租車資訊 (Car Rental)</span>
+          </h2>
+          <div class="text-xs text-slate-700 space-y-1.5 pt-1">
+            <p><strong>取車地點：</strong>雷克雅維克 KEF 機場租車櫃檯</p>
+            <p><strong>車型配備：</strong>4WD SUV (配備雪地釘胎 Spike Tires)</p>
+            <p><strong>取車時間：</strong>12/18 09:30 | <strong>還車時間：</strong>12/26 14:00</p>
+            <div class="pt-2 flex justify-end">
+              <a :href="getMapUrl('Keflavik Airport Car Rental')" target="_blank" class="bg-sky-500 text-white px-3 py-1.5 rounded-xl font-bold text-xs flex items-center space-x-1">
+                <i class="fa-solid fa-location-arrow"></i>
+                <span>導航至租車處</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 緊急醫療救援 -->
+        <div class="bg-red-50/80 rounded-2xl p-4 shadow-sm border border-red-200 space-y-2">
+          <h2 class="text-sm font-extrabold text-red-800 flex items-center space-x-2">
+            <i class="fa-solid fa-shield-heart text-red-500"></i>
+            <span>緊急求助專線 (Emergency Calls)</span>
+          </h2>
+          <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+            <div class="bg-white p-2 rounded-xl border border-red-100">
+              <div class="font-bold text-slate-800">芬蘭緊急電話</div>
+              <div class="text-red-600 font-extrabold text-sm">112</div>
+              <div class="text-[10px] text-slate-400">警察 / 救護車 / 消防</div>
+            </div>
+            <div class="bg-white p-2 rounded-xl border border-red-100">
+              <div class="font-bold text-slate-800">冰島緊急電話</div>
+              <div class="text-red-600 font-extrabold text-sm">112</div>
+              <div class="text-[10px] text-slate-400">救難隊 / 警察 / 醫療</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- 浮動新增按鈕 -->
+    <button 
+      v-if="currentTab === 'itinerary'"
+      @click="openAddModal"
+      class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-tr from-sky-500 to-nordic-600 text-white rounded-full shadow-xl flex items-center justify-center text-2xl hover:scale-110 active:scale-95 transition-all z-40 border-2 border-white"
+    >
+      <i class="fa-solid fa-plus"></i>
+    </button>
+
+    <!-- Modal 彈出視窗 -->
+    <div v-if="showModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between border-b pb-3">
+          <h3 class="text-base font-extrabold text-slate-800">
+            {{ isEditing ? '編輯行程項目' : '新增行程項目' }}
+          </h3>
+          <button @click="showModal = false" class="text-slate-400 hover:text-slate-600">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">行程分類</label>
+            <select v-model="form.category" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 font-semibold text-slate-800">
+              <option value="景點">景點 🏔️</option>
+              <option value="住宿">住宿 🏨</option>
+              <option value="美食">美食 🍕</option>
+              <option value="購物">購物 🛍️</option>
+              <option value="航班">航班 ✈️</option>
+              <option value="其他">其他 📍</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">行程/地標名稱 *</label>
+            <input type="text" v-model="form.name" placeholder="例如：赫爾辛基大教堂" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 font-semibold text-slate-800" />
+          </div>
+
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">時間 / 建議時段</label>
+            <input type="text" v-model="form.time" placeholder="例如：10:00 - 12:00" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 font-semibold text-slate-800" />
+          </div>
+
+          <div v-if="['景點', '住宿', '美食', '購物'].includes(form.category)">
+            <label class="font-bold text-slate-700 block mb-1">營業時間</label>
+            <input type="text" v-model="form.hours" placeholder="例如：06:30 - 18:00" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 font-semibold text-slate-800" />
+          </div>
+
+          <div v-if="form.category === '景點'">
+            <label class="font-bold text-slate-700 block mb-1">門票費用</label>
+            <input type="text" v-model="form.ticket" placeholder="例如：免費 或 €8" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 font-semibold text-slate-800" />
+          </div>
+
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">特色 & 備註資訊</label>
+            <textarea v-model="form.notes" rows="3" placeholder="備註特色或注意事項..." class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 font-semibold text-slate-800"></textarea>
+          </div>
+
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">到下一站交通時間 (分鐘)</label>
+            <input type="number" v-model.number="form.transitTime" placeholder="預估分鐘數" class="w-full bg-slate-100 border border-slate-200 rounded-xl p-2.5 font-semibold text-slate-800" />
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-between space-x-2">
+          <button 
+            v-if="isEditing" 
+            @click="confirmDelete" 
+            class="bg-red-100 hover:bg-red-200 text-red-600 px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center space-x-1"
+          >
+            <i class="fa-solid fa-trash"></i>
+            <span>{{ deleteConfirmed ? '點擊確定刪除' : '刪除行程' }}</span>
+          </button>
+
+          <div class="flex-1 flex justify-end space-x-2">
+            <button @click="showModal = false" class="bg-slate-100 text-slate-600 px-4 py-2.5 rounded-xl font-bold text-xs">取消</button>
+            <button @click="saveItem" class="bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-md">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Vue 3 邏輯 -->
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const currentTab = ref('itinerary');
+        const selectedDayIndex = ref(0);
+        const selectedCategory = ref('全部');
+        const dateScrollContainer = ref(null);
+
+        // 滾動日期選單
+        const scrollDates = (direction) => {
+          if (dateScrollContainer.value) {
+            const amount = direction === 'left' ? -180 : 180;
+            dateScrollContainer.value.scrollBy({ left: amount, behavior: 'smooth' });
+          }
+        };
+
+        const selectDay = (index) => {
+          selectedDayIndex.value = index;
+        };
+
+        // 匯率計算
+        const calcCurrency = ref('EUR');
+        const calcAmount = ref(100);
+        const calculatedTwd = computed(() => {
+          if (!calcAmount.value) return 0;
+          const rate = calcCurrency.value === 'EUR' ? 35.2 : 0.23;
+          return Math.round(calcAmount.value * rate).toLocaleString();
+        });
+
+        // 飯店清單
+        const hotelList = ref([
+          { name: 'Scandic Grand Central Helsinki', nights: '12/13 住宿', address: 'Vilhonkatu 13, 00100 Helsinki', phone: '+358 9 68150' },
+          { name: 'Arctic TreeHouse Hotel', nights: '12/15 - 12/17 住宿', address: 'Tarvantie 3, 96900 Rovaniemi', phone: '+358 50 5176909' },
+          { name: 'EIR Apartments', nights: '12/18 住宿', address: 'Eiríksgata, Reykjavík', phone: '+354 555 1234' },
+          { name: 'Vík Apartments', nights: '12/21 住宿', address: 'Klettsvegur 1-5, 870 Vík', phone: '+354 487 1234' }
+        ]);
+
+        // 完整 15 天預載行程資料 (12/12 至 12/26)
+        const itineraryData = ref([
+          {
+            weekday: 'SAT', dateNum: '12', location: '桃園 ➔ 赫爾辛基',
+            weather: { condition: 'cloud', temp: '20', feelsLike: '20', desc: '台北啟程' },
+            items: [
+              { id: '1-1', name: '華航 / 芬蘭航空（經羅馬轉機）', category: '航班', time: '23:25 TPE 起飛', hours: '', ticket: '', notes: '準備迎向北歐極地之旅，桃園機場 TPE 第一航廈搭機', transitTime: 0, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'SUN', dateNum: '13', location: '赫爾辛基市區',
+            weather: { condition: 'snow', temp: '-2', feelsLike: '-6', desc: '降雪機率高' },
+            items: [
+              { id: '2-1', name: 'Scandic Grand Central Helsinki 入住', category: '住宿', time: '16:00', hours: '24小時', ticket: '', notes: '赫爾辛基中央車站旁', transitTime: 20, transitMode: 'transit' },
+              { id: '2-2', name: '赫爾辛基集市廣場 (Market Square)', category: '景點', time: '16:30', hours: '06:30 - 18:00', ticket: '免費', notes: '體驗港灣夜景與在地熱魚湯', transitTime: 15, transitMode: 'walk' },
+              { id: '2-3', name: 'Ravintola Savotta 晚餐', category: '美食', time: '18:30', hours: '17:00 - 23:00', ticket: '', notes: '經典芬蘭料理與香煎鹿肉', transitTime: 10, transitMode: 'walk' }
+            ]
+          },
+          {
+            weekday: 'MON', dateNum: '14', location: '赫爾辛基 ➔ 羅瓦涅米',
+            weather: { condition: 'snow', temp: '-4', feelsLike: '-8', desc: '寒冷有雪' },
+            items: [
+              { id: '3-1', name: '赫爾辛基大教堂 (Helsinki Cathedral)', category: '景點', time: '10:00', hours: '09:00 - 18:00', ticket: '免費', notes: '白教堂地標與議會廣場', transitTime: 15, transitMode: 'walk' },
+              { id: '3-2', name: '岩石教堂 (Temppeliaukio Church)', category: '景點', time: '13:00', hours: '10:00 - 17:00', ticket: '€8', notes: '天然岩石中的現代建築構造', transitTime: 25, transitMode: 'transit' },
+              { id: '3-3', name: '搭乘 VR 極光夜車 (VR Night Train)', category: '航班', time: '19:00', hours: '夜間列車', ticket: '臥舖車廂', notes: '前往羅瓦涅米 Rovaniemi，車程約 12 小時', transitTime: 0, transitMode: 'transit' }
+            ]
+          },
+          {
+            weekday: 'TUE', dateNum: '15', location: '羅瓦涅米 Rovaniemi',
+            weather: { condition: 'snow', temp: '-10', feelsLike: '-15', desc: '極圈嚴寒' },
+            items: [
+              { id: '4-1', name: '抵達羅瓦涅米 & Arctic TreeHouse Hotel', category: '住宿', time: '07:30', hours: '入住 15:00', ticket: '', notes: '抵達拉普蘭極圈，寄存行李', transitTime: 20, transitMode: 'drive' },
+              { id: '4-2', name: 'Arktikum 極圈博物館', category: '景點', time: '11:00', hours: '10:00 - 18:00', ticket: '€18', notes: '了解薩米文化與北極生態', transitTime: 15, transitMode: 'drive' },
+              { id: '4-3', name: '夜間追極光雪上摩托車體驗', category: '景點', time: '19:30', hours: '預約制', ticket: '含防寒裝', notes: 'Snowmobile Aurora Hunting 馳騁雪原', transitTime: 10, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'WED', dateNum: '16', location: '聖誕老人村',
+            weather: { condition: 'snow', temp: '-8', feelsLike: '-13', desc: '北極圈大雪' },
+            items: [
+              { id: '5-1', name: '聖誕老人村 (Santa Claus Village)', category: '景點', time: '10:00', hours: '10:00 - 17:00', ticket: '免費', notes: '跨越北極圈緯度線 (66°33′07″ N) 領證書', transitTime: 10, transitMode: 'walk' },
+              { id: '5-2', name: '哈士奇雪橇拉車體驗 (Husky Safari)', category: '景點', time: '13:30', hours: '10:00 - 16:00', ticket: '體驗票', notes: '可愛哈士奇帶領奔馳雪地', transitTime: 15, transitMode: 'walk' },
+              { id: '5-3', name: 'Santa\'s Salmon House 鮭魚屋', category: '美食', time: '17:00', hours: '12:00 - 18:00', ticket: '', notes: '木炭現烤傳統柴燒鮭魚', transitTime: 5, transitMode: 'walk' }
+            ]
+          },
+          {
+            weekday: 'THU', dateNum: '17', location: '薩米馴鹿農場',
+            weather: { condition: 'snow', temp: '-12', feelsLike: '-17', desc: '適合夜間追光' },
+            items: [
+              { id: '6-1', name: '薩米人馴鹿農場巡禮 (Reindeer Farm)', category: '景點', time: '10:30', hours: '預約制', ticket: '導覽票', notes: '搭乘馴鹿雪橇，聆聽原住民歷史', transitTime: 30, transitMode: 'drive' },
+              { id: '6-2', name: '湖畔極地夜空追光體驗', category: '景點', time: '20:00', hours: '夜間', ticket: '免費', notes: '遠離城市光害，湖畔捕捉極光', transitTime: 20, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'FRI', dateNum: '18', location: '羅瓦涅米 ➔ 雷克雅維克',
+            weather: { condition: 'rain', temp: '2', feelsLike: '-3', desc: '冰島強風大雨/雪' },
+            items: [
+              { id: '7-1', name: 'RVN 飛往冰島 KEF 機場 & 取車', category: '航班', time: '05:20 起飛', hours: '05:20 ➔ 09:15', ticket: '機票', notes: '取 4WD SUV 配備雪地釘胎', transitTime: 45, transitMode: 'drive' },
+              { id: '7-2', name: 'EIR Apartments 辦理入住', category: '住宿', time: '14:00', hours: '14:00後', ticket: '', notes: '雷克雅維克市區公寓', transitTime: 10, transitMode: 'drive' },
+              { id: '7-3', name: 'Brauð & Co 肉桂捲', category: '美食', time: '15:00', hours: '06:30 - 18:00', ticket: '', notes: '冰島必吃現烤香濃肉桂捲', transitTime: 5, transitMode: 'walk' },
+              { id: '7-4', name: '哈爾格林姆教堂 (Hallgrímskirkja)', category: '景點', time: '16:00', hours: '10:00 - 17:00', ticket: '塔樓 ISK 1,400', notes: '玄武岩風琴造型，俯瞰彩色小屋', transitTime: 10, transitMode: 'walk' }
+            ]
+          },
+          {
+            weekday: 'SAT', dateNum: '19', location: '斯奈山半島 Snæfellsnes',
+            weather: { condition: 'snow', temp: '0', feelsLike: '-5', desc: '海邊陣風強勁' },
+            items: [
+              { id: '8-1', name: '教會山與教會山瀑布 (Kirkjufell)', category: '景點', time: '10:30', hours: '24小時', ticket: '免費', notes: '權力遊戲取景地「教堂山」', transitTime: 40, transitMode: 'drive' },
+              { id: '8-2', name: '黑教堂 (Búðakirkja)', category: '景點', time: '14:00', hours: '24小時', ticket: '免費', notes: '孤懸於荒野中的神秘黑色木教堂', transitTime: 25, transitMode: 'drive' },
+              { id: '8-3', name: 'Arnarestapi 海蝕柱與天然拱門', category: '景點', time: '15:30', hours: '24小時', ticket: '免費', notes: '壯麗海岸侵蝕地貌', transitTime: 30, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'SUN', dateNum: '20', location: '經典黃金圈 Golden Circle',
+            weather: { condition: 'cloud', temp: '-1', feelsLike: '-6', desc: '陰天多雲' },
+            items: [
+              { id: '9-1', name: '辛格韋德利國家公園 (Þingvellir)', category: '景點', time: '09:30', hours: '24小時', ticket: '停車費', notes: '歐亞與北美板塊交界縫隙', transitTime: 50, transitMode: 'drive' },
+              { id: '9-2', name: '蓋錫爾間歇泉 (Geysir & Strokkur)', category: '景點', time: '12:30', hours: '24小時', ticket: '免費', notes: '每 6-10 分鐘噴發數十公尺地熱泉', transitTime: 20, transitMode: 'drive' },
+              { id: '9-3', name: '黃金瀑布 (Gullfoss)', category: '景點', time: '14:30', hours: '24小時', ticket: '免費', notes: '雙層浩瀚壯闊冰川瀑布', transitTime: 30, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'MON', dateNum: '21', location: '冰島南岸 ➔ 維克小鎮',
+            weather: { condition: 'rain', temp: '1', feelsLike: '-4', desc: '瀑布水氣大' },
+            items: [
+              { id: '10-1', name: '塞里雅蘭瀑布 (Seljalandsfoss)', category: '景點', time: '10:00', hours: '24小時', ticket: '停車費', notes: '可穿行至水簾後方的神秘瀑布', transitTime: 30, transitMode: 'drive' },
+              { id: '10-2', name: '斯科加瀑布 (Skógafoss)', category: '景點', time: '12:00', hours: '24小時', ticket: '免費', notes: '巨幅水牆，晴天常伴隨雙彩虹', transitTime: 35, transitMode: 'drive' },
+              { id: '10-3', name: '維克黑沙灘 (Reynisfjara Beach)', category: '景點', time: '15:00', hours: '24小時', ticket: '免費', notes: '玄武岩柱牆與海蝕柱（留意瘋狗浪切勿靠近水邊）', transitTime: 10, transitMode: 'drive' },
+              { id: '10-4', name: 'Vík Apartments 入住', category: '住宿', time: '17:00', hours: '15:00後', ticket: '', notes: '維克小鎮住宿', transitTime: 5, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'TUE', dateNum: '22', location: '卡特拉火山藍冰洞',
+            weather: { condition: 'snow', temp: '-3', feelsLike: '-9', desc: '藍冰洞導覽需穿冰爪' },
+            items: [
+              { id: '11-1', name: '卡特拉火山超級越野車 & 藍冰洞', category: '景點', time: '09:30', hours: '預約制', ticket: '約 ISK 29,900', notes: 'Katla Ice Cave 穿戴冰爪深入萬年黑藍冰洞', transitTime: 20, transitMode: 'drive' },
+              { id: '11-2', name: '維克紅頂教堂 (Víkurkirkja)', category: '景點', time: '15:00', hours: '24小時', ticket: '免費', notes: '俯瞰維克小鎮與海岸線', transitTime: 15, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'WED', dateNum: '23', location: '傑古沙龍冰河湖',
+            weather: { condition: 'snow', temp: '-2', feelsLike: '-7', desc: '極地藍冰景致' },
+            items: [
+              { id: '12-1', name: '傑古沙龍冰河湖 (Jökulsárlón)', category: '景點', time: '10:30', hours: '24小時', ticket: '免費', notes: '巨大藍冰漂浮於湖面上的夢幻景致', transitTime: 10, transitMode: 'walk' },
+              { id: '12-2', name: '鑽石冰沙灘 (Diamond Beach)', category: '景點', time: '12:30', hours: '24小時', ticket: '免費', notes: '晶瑩冰塊擱淺於黑色沙灘如鑽石', transitTime: 25, transitMode: 'drive' },
+              { id: '12-3', name: '小冰河湖 (Fjallsárlón)', category: '景點', time: '14:30', hours: '24小時', ticket: '免費', notes: '寧靜別緻的冰川舌景致', transitTime: 40, transitMode: 'drive' }
+            ]
+          },
+          {
+            weekday: 'THU', dateNum: '24', location: '冰川健行 & 平安夜',
+            weather: { condition: 'snow', temp: '-4', feelsLike: '-9', desc: '平安夜極圈聖誕' },
+            items: [
+              { id: '13-1', name: '索爾黑馬冰川健行 (Sólheimajökull)', category: '景點', time: '09:30', hours: '預約制', ticket: '導覽票', notes: '專業教練帶領配備冰爪與冰斧體驗冰上行走', transitTime: 35, transitMode: 'drive' },
+              { id: '13-2', name: '美軍飛機殘骸 (DC-3 Plane Wreck)', category: '景點', time: '14:00', hours: '24小時', ticket: '接駁車另計', notes: '寂寞荒原上的美軍廢棄飛機', transitTime: 30, transitMode: 'drive' },
+              { id: '13-3', name: '平安夜聖誕大餐', category: '美食', time: '18:30', hours: '預約制', ticket: '', notes: '預約享用冰島聖誕特別晚宴', transitTime: 0, transitMode: 'walk' }
+            ]
+          },
+          {
+            weekday: 'FRI', dateNum: '25', location: '藍湖溫泉療癒',
+            weather: { condition: 'cloud', temp: '1', feelsLike: '-3', desc: '舒緩旅途疲勞' },
+            items: [
+              { id: '14-1', name: '藍湖溫泉 (Blue Lagoon)', category: '景點', time: '10:00', hours: '預約制', ticket: '約 €90 起', notes: '夢幻奶藍色地熱溫泉，舒緩疲勞', transitTime: 45, transitMode: 'drive' },
+              { id: '14-2', name: 'Laugavegur 購物街', category: '購物', time: '15:00', hours: '10:00 - 18:00', ticket: '', notes: '選購冰島羊毛毛衣 (Lopapeysa)、Fazer 巧克力', transitTime: 10, transitMode: 'walk' }
+            ]
+          },
+          {
+            weekday: 'SAT', dateNum: '26', location: '歸途 (雷克雅維克 ➔ 台北)',
+            weather: { condition: 'snow', temp: '0', feelsLike: '-5', desc: '帶著滿滿極光記憶返家' },
+            items: [
+              { id: '15-1', name: 'KEF 機場歸還車輛', category: '其他', time: '14:00', hours: '14:00 前', ticket: '', notes: '於 KEF 機場辦理還車手續與退稅', transitTime: 15, transitMode: 'walk' },
+              { id: '15-2', name: '冰島航空 / 華航 (經倫敦轉機)', category: '航班', time: '16:20 KEF 起飛', hours: '', ticket: '機票', notes: '16:20 KEF 起飛 ➔ 隔日 18:35 抵達桃園機場 TPE', transitTime: 0, transitMode: 'drive' }
+            ]
+          }
+        ]);
+
+        const currentDay = computed(() => itineraryData.value[selectedDayIndex.value]);
+        const currentDayItems = computed(() => currentDay.value.items);
+
+        const filteredItems = computed(() => {
+          if (selectedCategory.value === '全部') return currentDayItems.value;
+          return currentDayItems.value.filter(item => item.category === selectedCategory.value);
+        });
+
+        const moveItemUp = (index) => {
+          if (index <= 0) return;
+          const items = currentDay.value.items;
+          const temp = items[index];
+          items[index] = items[index - 1];
+          items[index - 1] = temp;
+        };
+
+        const moveItemDown = (index) => {
+          const items = currentDay.value.items;
+          if (index >= items.length - 1) return;
+          const temp = items[index];
+          items[index] = items[index + 1];
+          items[index + 1] = temp;
+        };
+
+        const showModal = ref(false);
+        const isEditing = ref(false);
+        const deleteConfirmed = ref(false);
+        const editingItemId = ref(null);
+
+        const form = ref({
+          name: '', category: '景點', time: '', hours: '', ticket: '', notes: '', transitTime: 15, transitMode: 'drive'
+        });
+
+        const openAddModal = () => {
+          isEditing.value = false;
+          deleteConfirmed.value = false;
+          form.value = { name: '', category: '景點', time: '', hours: '', ticket: '', notes: '', transitTime: 15, transitMode: 'drive' };
+          showModal.value = true;
+        };
+
+        const openEditModal = (item) => {
+          isEditing.value = true;
+          deleteConfirmed.value = false;
+          editingItemId.value = item.id;
+          form.value = { ...item };
+          showModal.value = true;
+        };
+
+        const saveItem = () => {
+          if (!form.value.name.trim()) {
+            alert('請輸入行程名稱！');
+            return;
+          }
+          if (isEditing.value) {
+            const idx = currentDay.value.items.findIndex(i => i.id === editingItemId.value);
+            if (idx !== -1) currentDay.value.items[idx] = { ...form.value, id: editingItemId.value };
+          } else {
+            currentDay.value.items.push({ ...form.value, id: Date.now().toString() });
+          }
+          showModal.value = false;
+        };
+
+        const confirmDelete = () => {
+          if (!deleteConfirmed.value) {
+            deleteConfirmed.value = true;
+          } else {
+            currentDay.value.items = currentDay.value.items.filter(i => i.id !== editingItemId.value);
+            showModal.value = false;
+          }
+        };
+
+        const toggleTransitMode = (item) => {
+          const modes = ['drive', 'walk', 'transit'];
+          const nextIdx = (modes.indexOf(item.transitMode || 'drive') + 1) % modes.length;
+          item.transitMode = modes[nextIdx];
+        };
+
+        const getTransitIcon = (mode) => {
+          switch(mode) {
+            case 'walk': return 'fa-solid fa-person-walking';
+            case 'transit': return 'fa-solid fa-bus';
+            default: return 'fa-solid fa-car';
+          }
+        };
+
+        const getWeatherIcon = (cond) => {
+          switch(cond) {
+            case 'sun': return 'fa-solid fa-sun text-amber-500';
+            case 'rain': return 'fa-solid fa-cloud-showers-heavy text-sky-500';
+            case 'snow': return 'fa-regular fa-snowflake text-sky-400';
+            default: return 'fa-solid fa-cloud-sun text-slate-400';
+          }
+        };
+
+        const getCategoryBadgeClass = (cat) => {
+          switch(cat) {
+            case '景點': return 'bg-emerald-100 text-emerald-800';
+            case '住宿': return 'bg-indigo-100 text-indigo-800';
+            case '美食': return 'bg-amber-100 text-amber-800';
+            case '購物': return 'bg-purple-100 text-purple-800';
+            case '航班': return 'bg-sky-100 text-sky-800';
+            default: return 'bg-slate-200 text-slate-800';
+          }
+        };
+
+        const getMapUrl = (query) => {
+          return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+        };
+
+        return {
+          currentTab, selectedDayIndex, selectedCategory, itineraryData, currentDay, currentDayItems, filteredItems,
+          hotelList, calcCurrency, calcAmount, calculatedTwd, showModal, isEditing, deleteConfirmed, form,
+          dateScrollContainer, scrollDates, selectDay, openAddModal, openEditModal, saveItem, confirmDelete,
+          moveItemUp, moveItemDown, toggleTransitMode, getTransitIcon, getWeatherIcon, getCategoryBadgeClass, getMapUrl
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
