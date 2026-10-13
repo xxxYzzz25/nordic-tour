@@ -229,10 +229,6 @@
 
               <h3 class="text-base font-bold text-slate-100 flex items-center justify-between">
                 <span>{{ item.name }}</span>
-                <span class="text-[11px] text-sky-400 font-normal flex items-center space-x-1 bg-sky-950/60 px-2 py-0.5 rounded-lg border border-sky-500/20">
-                  <span>查看詳情</span>
-                  <i class="fa-solid fa-chevron-right text-[9px]"></i>
-                </span>
               </h3>
 
               <div class="space-y-1 text-xs text-slate-300">
@@ -642,19 +638,6 @@
               {{ selectedItem.detail || selectedItem.notes || '暫無詳細介紹。' }}
             </p>
           </div>
-        </div>
-
-        <div class="p-3 border-t border-slate-800 bg-slate-950 flex justify-end space-x-2 shrink-0">
-          <button @click="showDetailModal = false" class="bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold">關閉</button>
-          <a 
-            v-if="selectedItem.category !== '航班'" 
-            :href="selectedItem.link || getMapUrl(selectedItem.name)" 
-            target="_blank" 
-            class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5"
-          >
-            <i class="fa-solid fa-map-location-dot"></i>
-            <span>Google 地圖導航</span>
-          </a>
         </div>
       </div>
     </div>
