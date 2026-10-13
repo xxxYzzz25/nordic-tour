@@ -41,7 +41,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
-    /* iOS 27 未來液態玻璃質感卡片 (非純白) */
+    /* iOS 27 未來液態玻璃質感卡片 */
     .ios-glass-card {
       background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(16px);
@@ -70,11 +70,10 @@
 <body class="bg-nordic-dark text-slate-100 antialiased font-sans min-h-screen flex justify-center selection:bg-sky-500 selection:text-white">
 
   <!-- App 主容器 -->
-  <div id="app" class="w-full max-w-md bg-gradient-to-b from-slate-950 via-nordic-dark to-slate-950 min-h-screen shadow-2xl relative flex flex-col pb-28 border-x border-slate-800/40">
+  <div id="app" class="w-full max-w-md bg-gradient-to-b from-slate-950 via-nordic-dark to-slate-950 min-h-screen shadow-2xl relative flex flex-col pb-32 border-x border-slate-800/40">
 
-    <!-- ==================== 固定式頂部 Header (Sticky Top 捲動不消失) ==================== -->
+    <!-- ==================== 固定式頂部 Header ==================== -->
     <header class="sticky top-0 z-30 bg-slate-950/90 backdrop-blur-xl border-b border-sky-500/20 shadow-xl">
-      <!-- 頂部視覺 Banner -->
       <div class="relative w-full h-28 overflow-hidden shrink-0">
         <img 
           src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=1000&q=80" 
@@ -83,7 +82,6 @@
         />
         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
 
-        <!-- Header 標題 -->
         <div class="absolute bottom-2 left-4 right-4 text-white">
           <div class="flex items-center space-x-1.5 text-sky-400 text-[10px] font-bold tracking-widest uppercase mb-0.5">
             <i class="fa-solid fa-snowflake animate-spin-slow"></i>
@@ -93,7 +91,7 @@
         </div>
       </div>
 
-      <!-- 15 天連續滑動日期選單 (無週分頁 + 兩側左右箭頭) -->
+      <!-- 15 天連續滑動日期選單 -->
       <div v-if="currentTab === 'itinerary'" class="flex items-center px-2 py-2 bg-slate-900/90 border-t border-white/5">
         <button 
           @click="scrollDates('left')" 
@@ -132,27 +130,27 @@
       <!-- ==================== TAB 1: 每日行程表 ==================== -->
       <div v-if="currentTab === 'itinerary'" class="space-y-4">
 
-        <!-- 1. 當日天氣資訊 -->
+        <!-- 天氣卡片 -->
         <div class="ios-glass-card rounded-2xl p-3.5 flex items-center justify-between border-l-4 border-l-sky-400">
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-sky-950/80 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xl">
+          <div class="flex items-center space-x-3 flex-1 min-w-0">
+            <div class="w-11 h-11 shrink-0 rounded-xl bg-sky-950/80 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xl">
               <i :class="getWeatherIcon(currentDay.weather.condition)"></i>
             </div>
-            <div>
-              <div class="flex items-center space-x-2">
-                <span class="text-xs font-bold text-sky-200 uppercase tracking-wider">{{ currentDay.location }}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-bold border border-sky-400/30">Day {{ selectedDayIndex + 1 }} / 15</span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center space-x-2 flex-wrap">
+                <span class="text-xs font-bold text-sky-200 truncate">{{ currentDay.location }}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-bold border border-sky-400/30 shrink-0">Day {{ selectedDayIndex + 1 }} / 15</span>
               </div>
-              <p class="text-xs text-slate-400 mt-0.5">{{ currentDay.weather.desc }}</p>
+              <p class="text-xs text-slate-400 mt-0.5 truncate">{{ currentDay.weather.desc }}</p>
             </div>
           </div>
-          <div class="text-right">
+          <div class="text-right shrink-0 pl-3">
             <div class="text-lg font-black text-sky-300 leading-none">{{ currentDay.weather.temp }}°C</div>
             <div class="text-[10px] text-slate-400 mt-1">體感 {{ currentDay.weather.feelsLike }}°C</div>
           </div>
         </div>
 
-        <!-- 2. 當日全線路線地圖 (包含當天所有行程停靠站點路線圖) -->
+        <!-- 當日全線路線地圖 -->
         <div class="ios-glass-card rounded-2xl p-3 space-y-2 border border-sky-500/20">
           <div class="flex items-center justify-between text-xs font-bold text-sky-300 px-1">
             <span class="flex items-center space-x-1.5">
@@ -168,7 +166,6 @@
               <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
             </a>
           </div>
-          <!-- 內嵌 Google Maps 路線地圖 -->
           <div class="w-full h-40 rounded-xl overflow-hidden border border-white/10 relative shadow-inner bg-slate-900">
             <iframe 
               width="100%" 
@@ -182,11 +179,9 @@
           </div>
         </div>
 
-        <!-- 3. 行程卡片清單 (點擊打開含圖文的 Modal，卡片非白色，無編輯排序) -->
+        <!-- 行程卡片清單 -->
         <div class="space-y-3">
           <div v-for="(item, idx) in currentDayItems" :key="item.id">
-
-            <!-- 交通移動時間條 -->
             <div v-if="idx === 0" class="my-2 flex items-center justify-center space-x-2 text-[11px] text-sky-300/70 bg-sky-950/40 py-1 px-3 rounded-full w-max mx-auto border border-sky-500/20">
               <i class="fa-solid fa-hotel text-sky-400"></i>
               <span>從前一日住宿/出發地 ➔ 第一站 (約 {{ item.transitTime || '15' }} 分鐘)</span>
@@ -200,7 +195,6 @@
               <div class="flex-1 h-[1px] bg-sky-900/40"></div>
             </div>
 
-            <!-- 航班卡片 (無導航按鈕，點擊可開啟詳情照片Modal) -->
             <div 
               v-if="item.category === '航班'"
               @click="openDetailModal(item)"
@@ -219,7 +213,6 @@
               <p class="text-xs text-slate-300 mt-1 leading-relaxed" v-if="item.notes">{{ item.notes }}</p>
             </div>
 
-            <!-- 一般行程卡片 (點擊可彈出圖片與更長、更詳細的介紹) -->
             <div 
               v-else 
               @click="openDetailModal(item)"
@@ -256,7 +249,6 @@
                 </p>
               </div>
 
-              <!-- Google Maps 獨立地標導航按鈕 -->
               <div class="pt-2 border-t border-slate-700/50 flex justify-end">
                 <a 
                   :href="item.link || getMapUrl(item.name)" 
@@ -381,7 +373,7 @@
           </div>
         </div>
 
-        <!-- 租車與救援 -->
+        <!-- 租車資訊 -->
         <div class="ios-glass-card rounded-2xl p-4 space-y-2">
           <h2 class="text-sm font-extrabold text-sky-300 flex items-center space-x-2">
             <i class="fa-solid fa-car text-sky-400"></i>
@@ -399,40 +391,130 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- ==================== TAB 3: 提醒與必裝 APP ==================== -->
+      <div v-if="currentTab === 'reminders'" class="space-y-4">
+
+        <!-- 1. 緊急求助專線 (從資訊區搬移至此)[span_0](start_span)[span_0](end_span) -->
         <div class="bg-red-950/40 border border-red-500/30 rounded-2xl p-4 space-y-2">
           <h2 class="text-sm font-extrabold text-red-300 flex items-center space-x-2">
             <i class="fa-solid fa-shield-heart text-red-400"></i>
             <span>緊急求助專線 (Emergency Calls)</span>
           </h2>
           <div class="grid grid-cols-2 gap-2 text-xs pt-1">
-            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-red-500/20">
+            <a href="tel:112" class="bg-slate-900/80 p-2.5 rounded-xl border border-red-500/20 block hover:border-red-400 transition-all">
               <div class="font-bold text-slate-200">芬蘭通用救援</div>
-              <div class="text-red-400 font-black text-base">112</div>
-            </div>
-            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-red-500/20">
+              <div class="text-red-400 font-black text-base flex items-center justify-between mt-0.5">
+                <span>112</span>
+                <i class="fa-solid fa-phone text-xs opacity-70"></i>
+              </div>
+            </a>
+            <a href="tel:112" class="bg-slate-900/80 p-2.5 rounded-xl border border-red-500/20 block hover:border-red-400 transition-all">
               <div class="font-bold text-slate-200">冰島通用救援</div>
-              <div class="text-red-400 font-black text-base">112</div>
+              <div class="text-red-400 font-black text-base flex items-center justify-between mt-0.5">
+                <span>112</span>
+                <i class="fa-solid fa-phone text-xs opacity-70"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. 遊冰島必備 App (按 4 大分類與 iOS 下載按鈕)[span_1](start_span)[span_1](end_span) -->
+        <div class="ios-glass-card rounded-2xl p-4 space-y-4">
+          <div class="flex items-center space-x-2 border-b border-slate-700/60 pb-3">
+            <div class="w-9 h-9 rounded-xl bg-sky-950 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+            <div>
+              <h2 class="text-sm font-extrabold text-white">遊冰島必備 App</h2>
+              <p class="text-[11px] text-slate-400">分類整理與 iOS App Store 直達連結</p>
+            </div>
+          </div>
+
+          <!-- 分類列表 -->
+          <div v-for="category in appCategories" :key="category.title" class="space-y-2">
+            <h3 class="text-xs font-black text-sky-300 flex items-center space-x-1.5 pt-1">
+              <i :class="category.icon" class="text-sky-400"></i>
+              <span>{{ category.title }}</span>
+            </h3>
+
+            <div class="space-y-2">
+              <div v-for="app in category.apps" :key="app.name" class="bg-slate-900/80 p-3 rounded-xl border border-sky-500/20 flex items-center justify-between space-x-3">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center space-x-1.5">
+                    <span class="text-xs font-bold text-slate-100">{{ app.name }}</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{{ app.desc }}</p>
+                </div>
+
+                <a 
+                  :href="app.iosUrl" 
+                  target="_blank" 
+                  class="shrink-0 bg-sky-600/90 hover:bg-sky-500 text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold flex items-center space-x-1 shadow transition-all active:scale-95"
+                >
+                  <i class="fa-brands fa-apple text-xs"></i>
+                  <span>iOS 下載</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 極地裝備與注意事項 -->
+        <div class="ios-glass-card rounded-2xl p-4 space-y-3">
+          <div class="flex items-center space-x-2 border-b border-slate-700/60 pb-2">
+            <div class="w-9 h-9 rounded-xl bg-sky-950 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg">
+              <i class="fa-solid fa-suitcase-rolling"></i>
+            </div>
+            <div>
+              <h2 class="text-sm font-extrabold text-white">極地裝備與注意事項</h2>
+              <p class="text-[11px] text-slate-400">禦寒、防風防水與行前叮嚀</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-2.5 pt-1">
+            <div v-for="reminder in reminderList" :key="reminder.name" class="bg-slate-900/60 p-3 rounded-xl border border-white/5 flex items-start space-x-2.5">
+              <i class="fa-solid fa-circle-check text-sky-400 text-xs mt-1 shrink-0"></i>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-xs font-bold text-slate-200">{{ reminder.name }}</h3>
+                <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{{ reminder.detail }}</p>
+              </div>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- ==================== TAB 3: 獨立匯率換算 ==================== -->
+      <!-- ==================== TAB 4: 獨立匯率換算 ==================== -->
       <div v-if="currentTab === 'currency'" class="space-y-4">
 
         <div class="ios-glass-card rounded-2xl p-5 space-y-4">
-          <div class="flex items-center space-x-2 border-b border-slate-700/60 pb-3">
-            <div class="w-10 h-10 rounded-xl bg-sky-950 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xl">
-              <i class="fa-solid fa-calculator"></i>
+          <!-- 頂部標題與 API 狀態按鈕 -->
+          <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+            <div class="flex items-center space-x-2">
+              <div class="w-10 h-10 rounded-xl bg-sky-950 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xl">
+                <i class="fa-solid fa-calculator"></i>
+              </div>
+              <div>
+                <h2 class="text-base font-extrabold text-white">匯率即時換算工具</h2>
+                <p class="text-[11px] text-slate-400">輸入外幣金額算回台幣 (TWD)</p>
+              </div>
             </div>
-            <div>
-              <h2 class="text-base font-extrabold text-white">匯率即時換算工具</h2>
-              <p class="text-xs text-slate-400">輸入外幣金額，即時幫你算回新台幣 (TWD)</p>
-            </div>
+
+            <!-- Reload 抓取最新匯率按鈕 -->
+            <button 
+              @click="fetchLatestRates" 
+              :disabled="isLoadingRate"
+              class="bg-sky-600/80 hover:bg-sky-500 text-white px-3 py-1.5 rounded-xl font-bold text-xs flex items-center space-x-1.5 transition-all active:scale-95 border border-sky-400/30 shrink-0"
+            >
+              <i class="fa-solid fa-arrows-rotate" :class="{ 'animate-spin': isLoadingRate }"></i>
+              <span>{{ isLoadingRate ? '更新中...' : '' }}</span>
+            </button>
           </div>
 
           <div class="space-y-3">
+            <!-- 幣別選擇 -->
             <div>
               <label class="text-xs font-bold text-slate-400 block mb-1.5">選擇外幣幣別</label>
               <div class="grid grid-cols-2 gap-2">
@@ -453,34 +535,52 @@
               </div>
             </div>
 
+            <!-- 外幣金額輸入 (預設為空，右側包含 Reset 按鈕) -->
             <div>
-              <label class="text-xs font-bold text-slate-400 block mb-1.5">外幣金額 ({{ calcCurrency }})</label>
+              <div class="flex justify-between items-center mb-1.5">
+                <label class="text-xs font-bold text-slate-400">外幣金額 ({{ calcCurrency }})</label>
+                <!-- Reset 重置按鈕 -->
+                <button 
+                  @click="resetCalcAmount" 
+                  class="text-[11px] text-rose-400 hover:underline flex items-center space-x-1 font-semibold"
+                >
+                  <i class="fa-solid fa-rotate-left text-[10px]"></i>
+                  <span>Reset</span>
+                </button>
+              </div>
+
               <input 
                 type="number" 
                 v-model.number="calcAmount" 
-                placeholder="例如：100"
-                class="w-full bg-slate-900/90 border border-sky-500/30 rounded-xl p-3 text-base font-extrabold text-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                placeholder="請輸入金額 (預設空白)"
+                class="w-full bg-slate-900/90 border border-sky-500/30 rounded-xl p-3 text-base font-extrabold text-white focus:outline-none focus:ring-2 focus:ring-sky-400 placeholder:text-slate-600 placeholder:font-normal"
               />
             </div>
 
+            <!-- 快捷增加金額按鈕 (+10, +100 等) -->
             <div class="flex space-x-2 pt-1">
               <button 
                 v-for="preset in (calcCurrency === 'EUR' ? [10, 50, 100, 200] : [1000, 5000, 10000, 30000])" 
                 :key="preset"
-                @click="calcAmount = preset"
-                class="flex-1 bg-slate-800/80 hover:bg-slate-700 text-slate-300 py-1.5 rounded-lg text-xs font-bold border border-white/5"
+                @click="addAmount(preset)"
+                class="flex-1 bg-slate-800/80 hover:bg-slate-700 text-slate-300 py-1.5 rounded-lg text-xs font-bold border border-white/5 active:scale-95 transition-all"
               >
                 +{{ preset.toLocaleString() }}
               </button>
             </div>
 
+            <!-- 換算結果 -->
             <div class="bg-gradient-to-r from-sky-600 to-nordic-700 rounded-2xl p-4 shadow-xl text-white space-y-1 mt-3">
               <span class="text-xs text-sky-100 font-semibold">換算結果折合新台幣：</span>
               <div class="text-2xl font-black tracking-tight">NT$ {{ calculatedTwd }}</div>
             </div>
 
-            <p class="text-[10px] text-slate-400 text-right pt-1">
-              * 參考換算匯率：1 EUR ≈ 35.2 TWD | 1,000 ISK ≈ 2.3 TWD
+            <!-- 當前使用匯率說明與更新時間 -->
+            <div class="text-[10px] text-slate-400 flex justify-between items-center pt-1">
+              <span>* 當前匯率：1 EUR ≈ {{ currentRates.EUR.toFixed(2) }} TWD | 1,000 ISK ≈ {{ (currentRates.ISK * 1000).toFixed(1) }} TWD</span>
+            </div>
+            <p v-if="lastRateUpdate" class="text-[9px] text-emerald-400/80 text-right">
+              最後更新於：{{ lastRateUpdate }}
             </p>
           </div>
         </div>
@@ -489,10 +589,18 @@
 
     </main>
 
-    <!-- ==================== 行程卡片點擊彈窗 (照片 + 詳細深度導覽介紹) ==================== -->
+    <!-- ==================== 右下角回到頂部小按鈕 ==================== -->
+    <button 
+      @click="scrollToTop" 
+      class="fixed bottom-24 right-5 z-40 w-10 h-10 rounded-full bg-slate-900/90 border border-sky-500/40 text-sky-400 shadow-2xl flex items-center justify-center hover:bg-sky-600 hover:text-white transition-all active:scale-95"
+      title="回到頂部"
+    >
+      <i class="fa-solid fa-arrow-up text-sm"></i>
+    </button>
+
+    <!-- 行程卡片點擊彈窗 -->
     <div v-if="showDetailModal && selectedItem" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
       <div class="bg-slate-900 border border-sky-500/30 rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95 duration-200">
-        <!-- 封面圖片 -->
         <div class="relative h-48 w-full shrink-0 bg-slate-950">
           <img :src="selectedItem.image || getPlaceholderImage(selectedItem.category)" :alt="selectedItem.name" class="w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
@@ -509,7 +617,6 @@
           </div>
         </div>
 
-        <!-- 景點內文詳細資訊 -->
         <div class="p-4 space-y-3 overflow-y-auto flex-1 text-xs text-slate-300 leading-relaxed">
           <div class="grid grid-cols-2 gap-2 bg-slate-950/60 p-2.5 rounded-xl border border-white/5">
             <div v-if="selectedItem.time">
@@ -537,7 +644,6 @@
           </div>
         </div>
 
-        <!-- 彈窗底部導航按鈕 -->
         <div class="p-3 border-t border-slate-800 bg-slate-950 flex justify-end space-x-2 shrink-0">
           <button @click="showDetailModal = false" class="bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold">關閉</button>
           <a 
@@ -553,15 +659,15 @@
       </div>
     </div>
 
-    <!-- ==================== iOS 27 未來感懸浮底部導航 Dock ==================== -->
-    <nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-sm ios-dock rounded-full p-2 z-40 flex items-center justify-around">
+    <!-- ==================== iOS 27 未來感懸浮底部導航 Dock (4 Tabs) ==================== -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-sm ios-dock rounded-full p-1.5 z-40 flex items-center justify-around">
       <button 
         @click="currentTab = 'itinerary'"
         :class="currentTab === 'itinerary' ? 'tab-active-glow text-sky-300 font-extrabold' : 'text-slate-400 hover:text-slate-200'"
         class="flex-1 py-2 rounded-full flex flex-col items-center justify-center space-y-0.5 transition-all duration-300"
       >
-        <i class="fa-solid fa-map-location-dot text-base"></i>
-        <span class="text-[10px]">行程</span>
+        <i class="fa-solid fa-map-location-dot text-sm"></i>
+        <span class="text-[9px]">行程</span>
       </button>
 
       <button 
@@ -569,8 +675,17 @@
         :class="currentTab === 'info' ? 'tab-active-glow text-sky-300 font-extrabold' : 'text-slate-400 hover:text-slate-200'"
         class="flex-1 py-2 rounded-full flex flex-col items-center justify-center space-y-0.5 transition-all duration-300"
       >
-        <i class="fa-solid fa-circle-info text-base"></i>
-        <span class="text-[10px]">資訊</span>
+        <i class="fa-solid fa-circle-info text-sm"></i>
+        <span class="text-[9px]">資訊</span>
+      </button>
+
+      <button 
+        @click="currentTab = 'reminders'"
+        :class="currentTab === 'reminders' ? 'tab-active-glow text-sky-300 font-extrabold' : 'text-slate-400 hover:text-slate-200'"
+        class="flex-1 py-2 rounded-full flex flex-col items-center justify-center space-y-0.5 transition-all duration-300"
+      >
+        <i class="fa-solid fa-bell text-sm"></i>
+        <span class="text-[9px]">提醒與App</span>
       </button>
 
       <button 
@@ -578,14 +693,14 @@
         :class="currentTab === 'currency' ? 'tab-active-glow text-sky-300 font-extrabold' : 'text-slate-400 hover:text-slate-200'"
         class="flex-1 py-2 rounded-full flex flex-col items-center justify-center space-y-0.5 transition-all duration-300"
       >
-        <i class="fa-solid fa-coins text-base"></i>
-        <span class="text-[10px]">匯率換算</span>
+        <i class="fa-solid fa-coins text-sm"></i>
+        <span class="text-[9px]">匯率</span>
       </button>
     </nav>
 
   </div>
 
-  <!-- Vue 3 邏輯與每日路線數據 -->
+  <!-- Vue 3 邏輯 -->
   <script>
     const { createApp, ref, computed } = Vue;
 
@@ -595,7 +710,10 @@
         const selectedDayIndex = ref(0);
         const dateScrollContainer = ref(null);
 
-        // 彈窗 Modal
+        const scrollToTop = () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
         const showDetailModal = ref(false);
         const selectedItem = ref(null);
 
@@ -604,7 +722,6 @@
           showDetailModal.value = true;
         };
 
-        // 15 天連續滑動
         const scrollDates = (direction) => {
           if (dateScrollContainer.value) {
             const amount = direction === 'left' ? -150 : 150;
@@ -612,16 +729,51 @@
           }
         };
 
-        // 匯率計算
+        // ==================== 匯率計算與動態 API 邏輯 ====================
         const calcCurrency = ref('EUR');
-        const calcAmount = ref(100);
+        const calcAmount = ref(null); // 預設為空
+        const isLoadingRate = ref(false);
+        const lastRateUpdate = ref('');
+        const currentRates = ref({
+          EUR: 35.2,
+          ISK: 0.23
+        });
+
+        const resetCalcAmount = () => {
+          calcAmount.value = null;
+        };
+
+        const addAmount = (val) => {
+          calcAmount.value = (calcAmount.value || 0) + val;
+        };
+
         const calculatedTwd = computed(() => {
-          if (!calcAmount.value) return '0';
-          const rate = calcCurrency.value === 'EUR' ? 35.2 : 0.23;
+          if (!calcAmount.value || calcAmount.value <= 0) return '0';
+          const rate = calcCurrency.value === 'EUR' ? currentRates.value.EUR : currentRates.value.ISK;
           return Math.round(calcAmount.value * rate).toLocaleString();
         });
 
-        // 動態生成 Google 地圖當日路線網址 (包含起點與中間停靠站)
+        // 抓取線上最新匯率 API
+        const fetchLatestRates = async () => {
+          isLoadingRate.value = true;
+          try {
+            const res = await fetch('https://open.er-api.com/v6/latest/TWD');
+            const data = await res.json();
+            if (data && data.rates) {
+              // 算回 TWD (1 EUR = ? TWD, 1 ISK = ? TWD)
+              if (data.rates.EUR) currentRates.value.EUR = 1 / data.rates.EUR;
+              if (data.rates.ISK) currentRates.value.ISK = 1 / data.rates.ISK;
+              
+              const now = new Date();
+              lastRateUpdate.value = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+            }
+          } catch (e) {
+            console.error('抓取匯率失敗，使用預設匯率', e);
+          } finally {
+            isLoadingRate.value = false;
+          }
+        };
+
         const getMapRouteEmbedUrl = (day) => {
           if (!day || !day.mapRoute) return '';
           return `https://maps.google.com/maps?saddr=${encodeURIComponent(day.mapRoute.origin)}&daddr=${encodeURIComponent(day.mapRoute.dest)}&output=embed`;
@@ -632,7 +784,56 @@
           return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(day.mapRoute.origin)}&destination=${encodeURIComponent(day.mapRoute.dest)}`;
         };
 
-        // 住宿清單
+        // 4 大分類遊冰島必備 App 清單 (含 iOS App Store 直達連結)
+        const appCategories = ref([
+          {
+            title: '1. 天氣與路況',
+            icon: 'fa-solid fa-cloud-sun-rain',
+            apps: [
+              { name: 'Veður (冰島氣象局)', desc: '冰島官方氣象 App，精準查詢即時風速、降雪與暴風警報。', iosUrl: 'https://apps.apple.com/app/ve%C3%B0ur/id581254316' },
+              { name: 'Færð & Veður (冰島路況)', desc: '冰島公路局官方 App，自駕出門前必查道路封閉與路面結冰。', iosUrl: 'https://apps.apple.com/app/f%C3%A6r%C3%B0-ve%C3%B0ur/id1048924080' }
+            ]
+          },
+          {
+            title: '2. 安全與緊急救援',
+            icon: 'fa-solid fa-shield-halved',
+            apps: [
+              { name: 'SafeTravel Iceland', desc: '冰島救援協會官方 App，提供自駕與登山安全提醒與即時警報。', iosUrl: 'https://apps.apple.com/app/safetravel-iceland/id1450201666' },
+              { name: '112 Iceland', desc: '緊急救援 App，按下 Check-in 可發送目前位置給救援單位。', iosUrl: 'https://apps.apple.com/app/112-iceland/id501062010' }
+            ]
+          },
+          {
+            title: '3. 極光預測',
+            icon: 'fa-solid fa-wand-magic-sparkles',
+            apps: [
+              { name: 'My Aurora Forecast & Alerts', desc: '介面直覺，提供 KP 指數預報、雲層覆蓋率與推送極光警報。', iosUrl: 'https://apps.apple.com/app/my-aurora-forecast-alerts/id1073082439' },
+              { name: 'Aurora Forecast', desc: '詳細的極光地圖與即時太陽風數據預報分析。', iosUrl: 'https://apps.apple.com/app/aurora-forecast/id533800615' }
+            ]
+          },
+          {
+            title: '4. 交通、油料與停車',
+            icon: 'fa-solid fa-square-parking',
+            apps: [
+              { name: 'Parka.is', desc: '冰島各大景點、國家公園及雷克雅維克市區自動辨識車牌繳費 App。', iosUrl: 'https://apps.apple.com/app/parka/id1396386862' },
+              { name: 'Eldsneyti (Bensin)', desc: '即時搜尋冰島全島各大加油站地點與油價比較。', iosUrl: 'https://apps.apple.com/app/eldsneyti/id1438908862' },
+              { name: 'EasyPark', desc: '歐洲通用停車 App，備用停車扣款工具。', iosUrl: 'https://apps.apple.com/app/easypark-parking-made-easy/id449830132' }
+            ]
+          }
+        ]);
+
+        const reminderList = ref([
+          { name: '防風、防水的外套（帶帽子）', detail: '擋風、防雪，隨時保持乾爽舒適。' },
+          { name: '保暖內衣和 Leggings', detail: '多帶幾件替換，戶外活動時可作為完美基底層。' },
+          { name: '登山防滑鞋', detail: '建議選稍大一點的鞋子，冷的時候可以多穿幾層厚襪。' },
+          { name: '羊毛襪與長襪', detail: '特別冷的時候可以疊穿，保持足部溫暖乾燥。' },
+          { name: '厚羽絨外套', detail: '不管長版或短版，保暖與耐髒是極地生存關鍵。' },
+          { name: '防水褲 / 雪褲', detail: '穿在普通褲子外層，有效阻擋雪水與寒風。' },
+          { name: '毛帽、耳罩與頸巾', detail: '保護頭部、耳朵與脖子不被強風凍傷。' },
+          { name: '防水防風手套', detail: '最好選擇可觸控手機螢幕的款式，避免操作相機時凍僵。' },
+          { name: '太陽眼鏡', detail: '雪地反光非常刺眼，強烈建議晴天時配戴。' },
+          { name: '隨身小冰抓', detail: '在城市結冰人行道行走防滑用，保障安全。' }
+        ]);
+
         const hotelList = ref([
           { name: 'Scandic Grand Central Helsinki', nights: '12/13 住宿', address: '赫爾辛基中央車站旁' },
           { name: 'Villa Onnela with sauna', nights: '12/15 - 12/17 住宿 (3晚)', address: 'Near Santa Village, Rovaniemi', link: 'https://www.google.com/maps/place/Villa+Onnela+with+sauna,wifi+and+parking+near+Santa+Village/@66.5187225,25.8000603,17z' },
@@ -642,7 +843,6 @@
           { name: 'Downtown Reykjavík Apartments', nights: '12/25 住宿', address: 'Reykjavík, Iceland', link: 'https://www.google.com/maps/place/Downtown+Reykjav%C3%ADk+Apartments/@64.1410605,-21.9142288,16z' }
         ]);
 
-        // 最新完整 15 天行程數據 (含當天 Google Maps 路線起點與途經目的地 mapRoute)
         const itineraryData = ref([
           {
             dateStr: '12/12 (六)', weekday: 'SAT', dateNum: '12', location: '桃園 ➔ 赫爾辛基',
@@ -661,7 +861,7 @@
           {
             dateStr: '12/13 (日)', weekday: 'SUN', dateNum: '13', location: '赫爾辛基市區',
             mapRoute: { origin: 'Helsinki Airport', dest: 'Scandic Grand Central Helsinki+to:Market Square Helsinki+to:Ravintola Savotta' },
-            weather: { condition: 'snow', temp: '-2', feelsLike: '-6', desc: '降雪機率高' },
+            weather: { condition: 'snow', temp: '-2', feelsLike: '-6', desc: '降雪機率高 (Vedur.is)' },
             items: [
               {
                 id: '2-1', name: 'Scandic Grand Central Helsinki', category: '住宿', time: '15:10 抵達 HEL', hours: '24小時',
@@ -818,7 +1018,7 @@
           {
             dateStr: '12/18 (五)', weekday: 'FRI', dateNum: '18', location: '雷克雅維克市區巡禮',
             mapRoute: { origin: 'Keflavík International Airport', dest: 'EIR Apartments Reykjavík+to:Brauð %26 Co+to:Sun Voyager+to:Hallgrímskirkja' },
-            weather: { condition: 'rain', temp: '2', feelsLike: '-3', desc: '冰島強風雨雪' },
+            weather: { condition: 'rain', temp: '2', feelsLike: '-3', desc: '冰島強風雨雪 (Vedur.is)' },
             items: [
               {
                 id: '7-1', name: '羅瓦涅米 (RVN) 飛往 雷克雅維克 (KEF)', category: '航班', time: '05:20 ➔ 09:15',
@@ -1187,7 +1387,6 @@
         const currentDay = computed(() => itineraryData.value[selectedDayIndex.value]);
         const currentDayItems = computed(() => currentDay.value.items);
 
-        // 交通 Icon
         const getTransitIcon = (mode) => {
           switch(mode) {
             case 'walk': return 'fa-solid fa-person-walking';
@@ -1196,7 +1395,6 @@
           }
         };
 
-        // 天氣 Icon
         const getWeatherIcon = (cond) => {
           switch(cond) {
             case 'sun': return 'fa-solid fa-sun text-amber-400';
@@ -1206,7 +1404,6 @@
           }
         };
 
-        // 類別 Badge
         const getCategoryBadgeClass = (cat) => {
           switch(cat) {
             case '景點': return 'bg-emerald-950 text-emerald-300 border border-emerald-500/30';
@@ -1233,10 +1430,10 @@
         };
 
         return {
-          currentTab, selectedDayIndex, dateScrollContainer, scrollDates,
+          currentTab, selectedDayIndex, dateScrollContainer, scrollDates, scrollToTop,
           showDetailModal, selectedItem, openDetailModal,
-          itineraryData, currentDay, currentDayItems, hotelList,
-          calcCurrency, calcAmount, calculatedTwd,
+          itineraryData, currentDay, currentDayItems, hotelList, reminderList, appCategories,
+          calcCurrency, calcAmount, resetCalcAmount, addAmount, calculatedTwd, fetchLatestRates, isLoadingRate, currentRates, lastRateUpdate,
           getMapRouteEmbedUrl, getMapRouteExternalUrl,
           getTransitIcon, getWeatherIcon, getCategoryBadgeClass, getPlaceholderImage, getMapUrl
         };
