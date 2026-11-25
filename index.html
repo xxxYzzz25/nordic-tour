@@ -827,544 +827,1092 @@
         ]);
 
         const itineraryData = ref([
+              {
+
+        dateStr: '12/12 (六)', weekday: 'SAT', dateNum: '12', location: '桃園 ➔ 赫爾辛基',
+
+        mapRoute: { origin: 'Taiwan Taoyuan International Airport', dest: 'Helsinki Airport' },
+
+        weather: { condition: 'cloud', temp: '20', feelsLike: '20', desc: '台北啟程' },
+
+        items: [
+
           {
-            dateStr: '12/12 (六)', weekday: 'SAT', dateNum: '12', location: '桃園 ➔ 赫爾辛基',
-            mapRoute: { origin: 'Taiwan Taoyuan International Airport', dest: 'Helsinki Airport' },
-            weather: { condition: 'cloud', temp: '20', feelsLike: '20', desc: '台北啟程' },
-            items: [
-              {
-                id: '1-1', name: '華航 / 芬蘭航空（經羅馬轉機）', category: '航班', time: '23:25 TPE 起飛',
-                notes: '準備迎向北歐極地之旅',
-                detail: '從桃園國際機場（TPE）第一航廈搭乘華航/芬蘭航空起飛，經羅馬轉機前往芬蘭赫爾辛基萬塔機場（HEL）。準備迎向北歐拉普蘭極光、聖誕老人村與冰島壯麗火山冰川之旅！',
-                image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/13 (日)', weekday: 'SUN', dateNum: '13', location: '赫爾辛基市區',
-            mapRoute: { origin: 'Helsinki Airport', dest: 'Scandic Grand Central Helsinki+to:Market Square Helsinki+to:Ravintola Savotta' },
-            weather: { condition: 'snow', temp: '-2', feelsLike: '-6', desc: '降雪機率高 (Vedur.is)' },
-            items: [
-              {
-                id: '2-1', name: 'Scandic Grand Central Helsinki', category: '住宿', time: '15:10 抵達 HEL', hours: '24小時',
-                notes: '赫爾辛基中央車站旁飯店',
-                detail: '15:10 飛抵赫爾辛基萬塔機場（HEL），搭乘機場快線前往市中心。入住座落於中央車站旁的 Scandic Grand Central，地理位置極佳，方便明日搭乘極光夜車。',
-                image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'transit'
-              },
-              {
-                id: '2-2', name: '赫爾辛基集市廣場 (Market Square)', category: '景點', time: '16:30', hours: '06:30 - 18:00', ticket: '免費',
-                notes: '感受赫爾辛基港灣景色，品嚐在地熱魚湯與北歐市集小吃',
-                detail: '感受赫爾辛基波羅的海港灣雪景，品嚐在地名物現煮三文魚熱魚湯與北歐傳統市集小吃，體驗拉普蘭冬季獨特的港埠市場氣氛。',
-                image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'walk'
-              },
-              {
-                id: '2-3', name: 'Ravintola Savotta 晚餐', category: '美食', time: '17:00', hours: '17:00 - 23:00',
-                notes: '經典芬蘭傳統料理，推薦香煎鹿肉、鮭魚與北歐風味料理',
-                detail: '位於議會廣場對面的知名傳統芬蘭餐廳。室內裝潢充滿濃郁的芬蘭森林懷舊風格，必點香煎鹿肉（Reindeer）、北歐野生莓果與香煎鮭魚料理。',
-                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              }
-            ]
-          },
-          {
-            dateStr: '12/14 (一)', weekday: 'MON', dateNum: '14', location: '赫爾辛基 ➔ 極光夜車',
-            mapRoute: { origin: 'Scandic Grand Central Helsinki', dest: 'Helsinki Cathedral+to:Temppeliaukio Church+to:Helsinki Central Station' },
-            weather: { condition: 'snow', temp: '-4', feelsLike: '-8', desc: '寒冷有雪' },
-            items: [
-              {
-                id: '3-1', name: '赫爾辛基大教堂 (Helsinki Cathedral)', category: '景點', time: '10:00', hours: '參觀主堂免費', ticket: '免費',
-                notes: '赫爾辛基地標白教堂，坐落於議會廣場，欣賞新古典主義建築',
-                detail: '赫爾辛基最具代表性的地標，聳立於議會廣場高處的淡綠色圓頂白色教堂，建於 1830 年代，呈現莊嚴典雅的新古典主義建築美學。',
-                image: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'walk'
-              },
-              {
-                id: '3-2', name: '岩石教堂 (Temppeliaukio Church)', category: '景點', time: '13:00', hours: '10:00 - 17:00', ticket: '約 €8',
-                notes: '直接開鑿於天然岩石中的現代建築，特殊岩壁與圓頂聲學效果',
-                detail: '直接開鑿於天然巨大花崗岩石塊中的現代建築傑作。上方由 180 條放射狀銅製金屬圓頂支撐，天然岩壁與光線交織出絕美的光影與極佳音樂聲學效果。',
-                image: 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?auto=format&fit=crop&w=800&q=80',
-                transitTime: 25, transitMode: 'transit'
-              },
-              {
-                id: '3-3', name: '搭乘 VR 極光夜車 (VR Night Train)', category: '航班', time: '夜間搭乘', hours: '車程約 12 小時', ticket: '臥舖車廂',
-                notes: '入住臥舖車廂前往羅瓦涅米，體驗芬蘭經典夜間火車旅程',
-                detail: '搭乘芬蘭鐵路 VR 雙層極光臥舖夜車前往北極圈大門——羅瓦涅米（Rovaniemi）。臥舖車廂配備獨立洗手台，在火車鐵道運轉聲中一路穿越雪原北上。',
-                image: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'transit'
-              }
-            ]
-          },
-          {
-            dateStr: '12/15 (二)', weekday: 'TUE', dateNum: '15', location: '羅瓦涅米 Rovaniemi',
-            mapRoute: { origin: 'Rovaniemi Railway Station', dest: 'Villa Onnela Rovaniemi+to:Arktikum+to:Lordi Square Rovaniemi' },
-            weather: { condition: 'snow', temp: '-10', feelsLike: '-15', desc: '極圈嚴寒' },
-            items: [
-              {
-                id: '4-1', name: 'Villa Onnela', category: '住宿', time: '07:30 抵達車站', hours: '附桑拿/WiFi/停車',
-                notes: '鄰近聖誕老人村，附桑拿、Wi-Fi 與停車空間',
-                detail: '約 07:30 抵達羅瓦涅米車站。前往 Villa Onnela 辦理入住或寄存行李。木屋提供芬蘭傳統桑拿 Sauna、Wi-Fi 與免費停車，溫馨舒適。',
-                link: 'https://www.google.com/maps/place/Villa+Onnela+with+sauna,wifi+and+parking+near+Santa+Village/@66.5187225,25.8000603,17z',
-                image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '4-2', name: 'Arktikum 極圈博物館', category: '景點', time: '10:00', hours: '10:00 - 18:00', ticket: '約 €18',
-                notes: '深入了解拉普蘭、薩米文化、極地歷史與北極自然生態',
-                detail: '頂部為長達 172 公尺長廊玻璃長廊的標誌性建築。深入展示拉普蘭地區原住民薩米人（Sámi）的生活文化、北極生態圈與北極光形成科學原理。',
-                image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'drive'
-              },
-              {
-                id: '4-3', name: '羅瓦涅米市區探索', category: '景點', time: '14:00', hours: '自由參觀', ticket: '免費',
-                notes: '漫步北極圈最大城市，感受拉普蘭冬季雪國氣氛',
-                detail: '漫步於羅瓦涅米市中心，體驗這個被譽為「聖誕老人故鄉」的雪國小鎮，逛逛當地的工藝品店、地標地圖軸線與極地咖啡館。',
-                image: 'https://images.unsplash.com/photo-1518081461904-9d8f136351c2?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              },
-              {
-                id: '4-4', name: '夜間追極光雪上摩托車體驗 (Snowmobile Aurora)', category: '活動', time: '19:30', hours: '預約制', ticket: '含防寒裝備',
-                notes: '駕駛雪上摩托車深入遠離光害的雪原追尋北極光',
-                detail: '換上專業保暖防寒連身衣與靴子，在夜幕低垂時駕駛雪上摩托車（Snowmobile）馳騁於拉普蘭寂靜雪原，在森林與凍湖畔等待綠色極光光束浮現。',
-                image: 'https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/16 (三)', weekday: 'WED', dateNum: '16', location: '聖誕老人村',
-            mapRoute: { origin: 'Villa Onnela Rovaniemi', dest: 'Santa Claus Village+to:Husky Park Rovaniemi+to:Santas Salmon Place' },
-            weather: { condition: 'snow', temp: '-8', feelsLike: '-13', desc: '北極圈降雪' },
-            items: [
-              {
-                id: '5-1', name: 'Villa Onnela', category: '住宿', time: '全天',
-                notes: '續住第二晚',
-                detail: '繼續入住 Villa Onnela，享有極地溫馨木屋空間與芬蘭桑拿體驗。',
-                link: 'https://www.google.com/maps/place/Villa+Onnela+with+sauna,wifi+and+parking+near+Santa+Village/@66.5187225,25.8000603,17z',
-                image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'drive'
-              },
-              {
-                id: '5-2', name: '聖誕老人村 (Santa Claus Village)', category: '景點', time: '10:00', hours: '10:00 - 17:00', ticket: '園區免費入場',
-                notes: '跨越北極圈緯度線 66°33′07″ N 領證書，拜訪聖誕老人',
-                detail: '踏入夢幻聖誕老人村，親腳跨越地上標示的北極圈緯度線（Latitude 66°33′07″ N）並購買認證證書！在聖誕老人總局郵局寄出蓋有北極圈郵戳的限定明信片。',
-                image: 'https://images.unsplash.com/photo-1543258103-a62bdc069871?auto=format&fit=crop&w=800&q=80',
-                transitTime: 5, transitMode: 'walk'
-              },
-              {
-                id: '5-3', name: '哈士奇雪橇拉車體驗 (Husky Safari)', category: '活動', time: '13:30', hours: '預約制', ticket: '體驗票',
-                notes: '乘坐哈士奇雪橇奔馳於拉普蘭雪白森林，體驗經典冬季活動',
-                detail: '前往村內的 Husky Park，乘坐充滿活力的阿拉斯加哈士奇犬隊拉動的雪橇，在白雪皚皚的松樹林與極圈雪道中高速奔馳，體驗經典北極冬季活動。',
-                image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              },
-              {
-                id: '5-4', name: 'Santa\'s Salmon Place / Salmon House', category: '美食', time: '17:00', hours: '11:00 - 17:00',
-                notes: '傳統木造帳篷內以明火現烤鮭魚，聖誕老人村代表性美食',
-                detail: '位於聖誕老人村內的傳統薩米木造帳篷（Kota）。在中央營火上使用木柴現場慢火直烤厚切鮮鮭魚，皮酥肉嫩多汁，搭配特製馬鈴薯沙拉是絕頂美味。',
-                image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=80',
-                transitTime: 5, transitMode: 'walk'
-              }
-            ]
-          },
-          {
-            dateStr: '12/17 (四)', weekday: 'THU', dateNum: '17', location: '馴鹿雪橇與極光專線',
-            mapRoute: { origin: 'Villa Onnela Rovaniemi', dest: 'Santa Claus Reindeer Rovaniemi+to:Villa Onnela Rovaniemi' },
-            weather: { condition: 'snow', temp: '-12', feelsLike: '-17', desc: '極夜適合追光' },
-            items: [
-              {
-                id: '6-1', name: 'Villa Onnela', category: '住宿', time: '全天',
-                notes: '續住第三晚',
-                detail: '續住 Villa Onnela。準備體驗最傳統的薩米馴鹿雪橇與夜間極光追尋。',
-                link: 'https://www.google.com/maps/place/Villa+Onnela+with+sauna,wifi+and+parking+near+Santa+Village/@66.5187225,25.8000603,17z',
-                image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'drive'
-              },
-              {
-                id: '6-2', name: '薩米人馴鹿農場巡禮與雪橇體驗', category: '活動', time: '10:30', hours: '預約制', ticket: '導覽體驗票',
-                notes: '參觀傳統農場，搭乘馴鹿雪橇穿梭森林雪原，認識薩米文化',
-                detail: '拜訪傳統薩米馴鹿農場，親手餵食可愛的北極馴鹿。搭乘被稱為「拉普蘭計程車」的馴鹿拉雪橇，以優雅而平穩的速度穿越夢幻森林雪原。',
-                image: 'https://images.unsplash.com/photo-1543258103-a62bdc069871?auto=format&fit=crop&w=800&q=80',
-                transitTime: 25, transitMode: 'drive'
-              },
-              {
-                id: '6-3', name: '極地夜空追光體驗', category: '景點', time: '20:00', hours: '夜間', ticket: '免費',
-                notes: '遠離羅瓦涅米市區光害，前往森林或湖畔等待極光出現',
-                detail: '遠離羅瓦涅米市區光害，前往無遮蔽的結冰湖畔或森林高地。在寒冷而繁星點點的極夜天空下，圍著營火喝著熱漿果汁，靜靜注視夜空等待歐若拉女神的舞蹈。',
-                image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/18 (五)', weekday: 'FRI', dateNum: '18', location: '雷克雅維克市區巡禮',
-            mapRoute: { origin: 'Keflavík International Airport', dest: 'EIR Apartments Reykjavík+to:Brauð %26 Co+to:Sun Voyager+to:Hallgrímskirkja' },
-            weather: { condition: 'rain', temp: '2', feelsLike: '-3', desc: '冰島強風雨雪 (Vedur.is)' },
-            items: [
-              {
-                id: '7-1', name: '羅瓦涅米 (RVN) 飛往 雷克雅維克 (KEF)', category: '航班', time: '05:20 ➔ 09:15',
-                notes: '於 KEF 機場取車（4WD SUV＋冬季雪地釘胎）',
-                detail: '搭乘極地航班飛抵冰島凱夫拉維克國際機場（KEF）。取預約好的 4WD SUV 並確認雪地釘胎（Spike Tires），為後續冰島自駕提供最高安全保障。',
-                image: 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=800&q=80',
-                transitTime: 45, transitMode: 'drive'
-              },
-              {
-                id: '7-2', name: 'EIR Apartments 辦理入住', category: '住宿', time: '14:00',
-                notes: '雷克雅維克市區舒適公寓',
-                detail: '位於雷克雅維克市中心的優質公寓，距離哈爾格林姆教堂僅幾步之遙，設有完善廚房設備。',
-                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'drive'
-              },
-              {
-                id: '7-3', name: 'Brauð & Co 肉桂捲', category: '美食', time: '15:00', hours: '06:30 - 18:00',
-                notes: '超人氣現烤肉桂捲，外酥內軟且肉桂香濃',
-                detail: '外觀為繽紛塗鴉彩繪建築。招牌現烤肉桂捲（Cinnamon Roll）外酥內軟，黑糖與肉桂香氣極濃郁，是冰島最受好評的烘焙名店！',
-                image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
-                transitTime: 5, transitMode: 'walk'
-              },
-              {
-                id: '7-4', name: 'Sun Voyager 太陽航海者 (Sólfarið)', category: '景點', time: '15:30', hours: '24小時', ticket: '免費',
-                notes: '海岸線代表性維京船骨架藝術裝置，象徵夢想與探索精神',
-                detail: '座落於海岸線邊的不鏽鋼雕塑，造形宛如維京海盜船骨架，面向大西洋與遠方雪山，象徵光芒、希望與探索未知的精神。',
-                image: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              },
-              {
-                id: '7-5', name: '哈爾格林姆教堂 (Hallgrímskirkja)', category: '景點', time: '16:00', hours: '10:00 - 17:00', ticket: '教堂免費/塔樓另購',
-                notes: '建築靈感來自玄武岩柱，登塔樓俯瞰彩色屋頂與海岸線',
-                detail: '高 74.5 公尺，建築外觀靈感源自冰島特有的冷卻玄武岩熔岩柱。搭乘電梯登上頂樓塔樓，可 360 度俯瞰雷克雅維克市區著名的彩色屋頂與海岸景象。',
-                image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              },
-              {
-                id: '7-6', name: 'Laugavegur 購物街與冰島美食巡禮', category: '購物', time: '17:00', hours: '10:00 - 18:00', ticket: '免費',
-                notes: '主要購物街，推薦品嚐羊肉湯、BBP熱狗與鐵鍋魚餐',
-                detail: '雷克雅維克最熱鬧的主幹道！建議今日完成購物（如冰島羊毛衫 Lopapeysa、戶外品牌 66°North），並可品嚐 Svarta Kaffið 麵包盅濃湯、BBP 熱狗與 Messinn 鐵鍋魚料理。',
-                image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              }
-            ]
-          },
-          {
-            dateStr: '12/19 (六)', weekday: 'SAT', dateNum: '19', location: '斯奈山半島 Snæfellsnes',
-            mapRoute: { origin: 'EIR Apartments Reykjavík', dest: 'Ytri Tunga+to:Bjarnarfoss+to:Búðakirkja+to:Arnarstapi+to:Djúpalónssandur+to:Kirkjufell+to:EIR Apartments Reykjavík' },
-            weather: { condition: 'snow', temp: '0', feelsLike: '-5', desc: '海邊陣風強勁' },
-            items: [
-              {
-                id: '8-1', name: 'EIR Apartments', category: '住宿', time: '全天',
-                notes: '雷克雅維克續住，建議 07:30 - 08:00 出發',
-                detail: '今日早出晚歸，進行斯奈山半島順時針環島一日遊，利用天亮前時間開車前往，把有限日照留給景點，晚上返回 EIR Apartments 休息。',
-                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-                transitTime: 40, transitMode: 'drive'
-              },
-              {
-                id: '8-2', name: 'Ytri-Tunga 海豹沙灘', category: '景點', time: '09:30', hours: '24小時', ticket: '免費',
-                notes: '少見金黃色沙灘，觀賞港海豹與灰海豹在礁石休息',
-                detail: '冰島少見的金黃色沙灘。沿著礁石岸邊漫步，極有機會近距離目睹野生港海豹與灰海豹趴在海中黑色礁石上曬太陽。',
-                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
-                transitTime: 25, transitMode: 'drive'
-              },
-              {
-                id: '8-3', name: 'Bjarnarfoss 瀑布', category: '景點', time: '11:00', hours: '24小時', ticket: '免費',
-                notes: '高聳山崖垂直落下，冬季常形成冰瀑與雪壁',
-                detail: '瀑布從高聳玄武岩山崖垂直奔流而下，冬季四周被白雪與冰柱包圍，站在停車場即可將整座玄武岩冰瀑盡收眼底。',
-                image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '8-4', name: 'Búðakirkja 黑教堂', category: '景點', time: '12:00', hours: '24小時', ticket: '免費',
-                notes: '經典黑色木造教堂，黑教堂與雪山火山熔岩極具孤寂感',
-                detail: '冰島最著名的孤獨黑教堂。極簡黑色木構造在茫茫白雪與黑色熔岩地貌襯托下，呈現極致的北歐冷冽孤寂美感。',
-                image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 25, transitMode: 'drive'
-              },
-              {
-                id: '8-5', name: 'Arnarstapi 海蝕柱與天然拱門', category: '景點', time: '13:30', hours: '24小時', ticket: '免費',
-                notes: '欣賞玄武岩海蝕崖、海蝕洞，Gatklettur 石拱為代表景觀',
-                detail: '沿著海岸步道欣賞大西洋浪花拍打壯麗玄武岩懸崖，其中 Gatklettur 天然海蝕石拱門是斯奈山半島最具代表性的海岸地形。',
-                image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '8-6', name: 'Djúpalónssandur 黑石沙灘', category: '景點', time: '14:30', hours: '24小時', ticket: '免費',
-                notes: '黑色鵝卵石火山海灘，沉船殘骸與測力石（留意巨浪）',
-                detail: '遍布黑色圓形火山鵝卵石的海灘，沙灘上散落著 1948 年英國沉船殘骸，並保留過去海賊與漁民測試手臂力量的四塊試力石（Lift Stone）。',
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-                transitTime: 30, transitMode: 'drive'
-              },
-              {
-                id: '8-7', name: 'Kirkjufell 教會山與 Kirkjufellsfoss 瀑布', category: '景點', time: '15:30', hours: '24小時', ticket: '部分停車場收費',
-                notes: '圓錐形教堂山與瀑布經典角度，《權力遊戲》取景地',
-                detail: '圓錐狀獨立山峰搭配面前的雙層 Kirkjufellsfoss 瀑布，是冰島曝光率最高的標誌景點，也是熱門美劇《權力遊戲》中的「箭頭山」。',
-                image: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/20 (日)', weekday: 'SUN', dateNum: '20', location: '黃金圈 & 蒂芬尼藍瀑布',
-            mapRoute: { origin: 'EIR Apartments Reykjavík', dest: 'Thingvellir National Park+to:Bruarfoss+to:Geysir+to:Gullfoss+to:Kerid Crater+to:EIR Apartments Reykjavík' },
-            weather: { condition: 'cloud', temp: '-1', feelsLike: '-6', desc: '多雲陰天' },
-            items: [
-              {
-                id: '9-1', name: 'EIR Apartments', category: '住宿', time: '全天',
-                notes: '雷克雅維克續住第三晚',
-                detail: '黃金圈一日遊後返回雷克雅維克市區住宿。',
-                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-                transitTime: 50, transitMode: 'drive'
-              },
-              {
-                id: '9-2', name: '辛格韋德利國家公園 (Þingvellir)', category: '景點', time: '09:30', hours: '09:00 - 17:00', ticket: '國家公園免費/停車費',
-                notes: '世界文化遺產，歐亞與北美板塊裂谷，古代議會發源地',
-                detail: '站在歐亞板塊與北美洲板塊張裂形成的巨大裂谷（Silfra）中，這裡更是西元 930 年世界上第一個民主議會（Alþingi）的誕生地。',
-                image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=800&q=80',
-                transitTime: 30, transitMode: 'drive'
-              },
-              {
-                id: '9-3', name: 'Brúarfoss 蒂芬尼藍瀑布', category: '景點', time: '11:30', hours: '24小時', ticket: '免費/停車費',
-                notes: '冰川河水從黑色火山岩集中流下，鮮明蒂芬尼藍水色',
-                detail: '冰川河水從黑色火山岩裂縫集中奔流而下，河水呈現驚人而純淨的蒂芬尼藍（Tiffany Blue），被譽為冰島最浪漫秘境瀑布。',
-                image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '9-4', name: 'Efsti-Dalur II 農場 Gelato 冰淇淋', category: '美食', time: '12:30', hours: '10:00 - 20:00',
-                notes: '家族乳牛農場，以自製新鮮牛奶冰淇淋聞名',
-                detail: '家族經營的在地有機乳牛農場，可以直接透過玻璃窗觀賞可愛牛隻，品嚐使用自家新鮮牛乳製作的純手工 Gelato 冰淇淋。',
-                image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '9-5', name: '蓋錫爾間歇泉 (Geysir & Strokkur)', category: '景點', time: '13:30', hours: '24小時', ticket: '免費',
-                notes: '世界著名地熱區，Strokkur 每隔數分鐘噴發數十公尺水柱',
-                detail: '世界間歇泉英文名「Geyser」的發源地！活躍的 Strokkur 間歇泉約每 6～10 分鐘便會噴出高達 20 至 40 公尺的滾燙水柱。',
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'drive'
-              },
-              {
-                id: '9-6', name: 'Gullfoss 黃金瀑布', category: '景點', time: '14:30', hours: '24小時', ticket: '免費',
-                notes: '黃金圈最壯觀瀑布，Hvítá 河雙層瀑布墜入峽谷',
-                detail: 'Hvítá 冰川河水猛烈墜入 32 公尺深的雙層峽谷中，冬季四周懸崖結滿冰柱，磅礡水霧在冬日陽光下常折射出閃耀彩虹。',
-                image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 25, transitMode: 'drive'
-              },
-              {
-                id: '9-7', name: 'Kerið Crater 火山口湖與 Selfoss 晚餐', category: '景點', time: '16:00', hours: '日照時間內', ticket: '約 ISK 600',
-                notes: '6500年歷史火山口，晚間至 Selfoss Kaffi Krús 享用披薩',
-                detail: '形成的火山口湖，陡峭的紅褐色火山岩壁與綠色苔蘚環繞著湖泊。返程至 Selfoss 的 Kaffi Krús 享用北歐手作披薩與漢堡。',
-                image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/21 (一)', weekday: 'MON', dateNum: '21', location: '南岸瀑布 ➔ 維克小鎮',
-            mapRoute: { origin: 'EIR Apartments Reykjavík', dest: 'Seljalandsfoss+to:Skógafoss+to:Reynisfjara Black Sand Beach+to:Víkurkirkja+to:Vík Apartments' },
-            weather: { condition: 'rain', temp: '1', feelsLike: '-4', desc: '瀑布水氣大' },
-            items: [
-              {
-                id: '10-1', name: '塞里雅蘭瀑布 (Seljalandsfoss)', category: '景點', time: '10:00', hours: '24小時', ticket: '景點免費/停車費',
-                notes: '60公尺瀑布垂直落下，周圍結滿冰柱（步道結冰不強行穿過）',
-                detail: '高約 60 公尺的狹長瀑布從懸崖飛瀉而下，冬季周圍岩壁結滿晶瑩冰柱。（特別提醒：冬季後方步道常因結冰封閉，請於前方觀景台安全欣賞）。',
-                image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
-                transitTime: 30, transitMode: 'drive'
-              },
-              {
-                id: '10-2', name: '斯科加瀑布 (Skógafoss)', category: '景點', time: '11:30', hours: '24小時', ticket: '免費',
-                notes: '60公尺高、25公尺寬巨幅水牆，晴天常伴隨雙彩虹',
-                detail: '寬達 25 公尺、高 60 公尺的巨型水牆瀑布！磅礡水氣在天氣晴朗時極易產生絕美雙彩虹，亦可沿著側邊階梯登上頂端觀景台。',
-                image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'drive'
-              },
-              {
-                id: '10-3', name: 'Sveitagrill Míu / Mia’s Country Van 炸魚餐車', category: '美食', time: '12:40', hours: '12:00 - 16:00',
-                notes: 'Skógar 附近知名炸魚薯條餐車，新鮮現炸白肉魚與酥脆麵衣',
-                detail: '位在 Skógar 附近的超人氣紅色小餐車，使用當日現捕鮮白肉魚搭配酥脆麵衣與炸薯條，是南岸最完美的溫暖午餐。',
-                image: 'https://images.unsplash.com/photo-1526234362852-3f71f0040355?auto=format&fit=crop&w=800&q=80',
-                transitTime: 25, transitMode: 'drive'
-              },
-              {
-                id: '10-4', name: 'Reynisfjara Black Sand Beach 黑沙灘', category: '景點', time: '14:30', hours: '24小時', ticket: '免費',
-                notes: '玄武岩柱牆、海蝕洞與海蝕柱（危險瘋狗浪務必遠離水線）',
-                detail: '世界最美的黑沙灘之一。壯觀的柱狀玄武岩牆與海中屹立的 Reynisdrangar 海蝕柱。（特別提醒：此處有極度危險的 Sneaker Waves 瘋狗浪，請務必保持距離）。',
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'drive'
-              },
-              {
-                id: '10-5', name: '維克紅頂教堂 (Víkurkirkja) & Vík 小鎮', category: '景點', time: '16:00', hours: '24小時', ticket: '免費',
-                notes: '坐落於山坡上，俯瞰 Vík 小鎮、海岸線與海蝕柱',
-                detail: '座落於維克小鎮山丘上的精緻紅頂教堂，是南岸地標，更是拍照俯瞰 Vík 小鎮、黑色沙灘與遠方海蝕柱的絕佳視角。',
-                image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 5, transitMode: 'drive'
-              },
-              {
-                id: '10-6', name: 'Vík Apartments 入住', category: '住宿', time: '17:00',
-                notes: '冰島南岸重要住宿與補給據點',
-                detail: '入住 Vík Apartments，配備齊全廚房，方便準備晚餐與休養體力。',
-                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/22 (二)', weekday: 'TUE', dateNum: '22', location: '羽毛河峽谷與東南岸秘境',
-            mapRoute: { origin: 'Vík Apartments', dest: 'Fossálar Waterfall+to:Fjaðrárgljúfur+to:Kirkjubæjarklaustur+to:Stjórnarfoss+to:Vík Apartments' },
-            weather: { condition: 'snow', temp: '-3', feelsLike: '-9', desc: '控制車程保留體力' },
-            items: [
-              {
-                id: '11-1', name: 'Vík Apartments', category: '住宿', time: '全天',
-                notes: '維克小鎮續住第二晚，建議 09:00 出發',
-                detail: '續住 Vík Apartments，今日行程距離適中，晚上早點休息準備明日長途冰河湖探索。',
-                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-                transitTime: 30, transitMode: 'drive'
-              },
-              {
-                id: '11-2', name: 'Fossálar 瀑布 (Fossálar Waterfall)', category: '景點', time: '10:02 抵達', hours: '停留 20~30 分鐘', ticket: '免費',
-                notes: '環島1號公路旁小型雙層瀑布，雪原冰霜包圍',
-                detail: '座落於環島 1 號公路旁邊的精巧瀑布，冬季周邊被雪原與冰霜包圍，非常適合當作驅車前往峽谷途中的極佳停靠點。',
-                image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
-                transitTime: 30, transitMode: 'drive'
-              },
-              {
-                id: '11-3', name: '羽毛河峽谷 (Fjaðrárgljúfur)', category: '景點', time: '11:23 抵達', hours: '停留 1~1.5 小時', ticket: '免費',
-                notes: '冰河融水形成的巨大蛇形峽谷，岩壁高達百公尺',
-                detail: '經過數萬年冰河融水侵蝕雕琢而成的巨大蛇形峽谷，深達百公尺。冬日積雪覆蓋於綠苔綠岩壁上，展現出絕無僅有的蒼茫荒野感。',
-                image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '11-4', name: 'Kirkjubæjarklaustur 小鎮 & Stjórnarfoss', category: '景點', time: '13:00', hours: '休息補給', ticket: '免費',
-                notes: '補給站午餐加油，順遊 Stjórnarfoss 瀑布與教堂地板',
-                detail: '在南岸補給小鎮享用午餐並將車輛加滿油！順遊圓弧峽谷造型的 Stjórnarfoss 瀑布與天然柱狀玄武岩排列而成的 Kirkjugólf「教堂地板」。',
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-                transitTime: 40, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/23 (三)', weekday: 'WED', dateNum: '23', location: '瓦特納冰川與冰河湖',
-            mapRoute: { origin: 'Vík Apartments', dest: 'Jökulsárlón Glacier Lagoon+to:Diamond Beach+to:Fjallsárlón+to:Vík Apartments' },
-            weather: { condition: 'snow', temp: '-2', feelsLike: '-7', desc: '極致冰川探索' },
-            items: [
-              {
-                id: '12-1', name: 'Vík Apartments', category: '住宿', time: '全天',
-                notes: '維克小鎮續住第三晚（Vík ➔ Jökulsárlón 車程約 2.5~3 小時）',
-                detail: '結束冰河湖長途探險後返回 Vík Apartments 住宿。',
-                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-                transitTime: 40, transitMode: 'drive'
-              },
-              {
-                id: '12-2', name: '瓦特納冰川天然藍冰洞探險 (Ice Cave in Iceland)', category: '活動', time: '09:30 報到', hours: '約 2.5 小時', ticket: '預約制導覽',
-                notes: '搭乘 Super Jeep 前往瓦特納冰川，探索藍冰洞',
-                detail: '在 Jökulsárlón 集合，搭乘巨輪 Super Jeep 深入 Vatnajökull 冰川。戴上安全帽與冰爪走進自然形成的藍冰洞，親眼震撼於萬年湛藍冰層與光影色彩。',
-                link: 'https://www.icecaveiniceland.is/',
-                image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              },
-              {
-                id: '12-3', name: 'Jökulsárlón 傑古沙龍冰河湖', category: '景點', time: '12:30', hours: '24小時', ticket: '免費/停車費',
-                notes: '巨大藍冰漂浮於潟湖之中，極致震撼的極地景觀',
-                detail: '冰島最閃耀的瑰寶！廣闊的冰河湖上漂浮著從瓦特納冰川崩落的巨型冰山，顏色從雪白、湛藍到帶有火山灰黑色紋路，夢幻至極。',
-                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'drive'
-              },
-              {
-                id: '12-4', name: 'Diamond Beach 鑽石冰沙灘', category: '景點', time: '14:00', hours: '24小時', ticket: '免費',
-                notes: '透明晶瑩冰塊擱淺於黑色沙灘上，如鑽石般閃耀',
-                detail: '冰河湖的冰塊漂流入大西洋後，被黑浪沖刷拋回黑色沙灘上。無數顆晶瑩剔透、巨型如水晶鑽石般的冰塊在黑沙上閃耀。',
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '12-5', name: 'Fjallsárlón 小冰河湖', category: '景點', time: '15:30', hours: '24小時', ticket: '免費',
-                notes: '較為寧靜的冰川舌與冰河湖景致',
-                detail: '距離 Jökulsárlón 不遠的小冰河湖，氛圍更加寧靜，能近距離直接眺望巨大冰川舌直插湖面的震撼全景。',
-                image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=800&q=80',
-                transitTime: 30, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/24 (四)', weekday: 'THU', dateNum: '24', location: '索爾黑馬冰川與平安夜',
-            mapRoute: { origin: 'Vík Apartments', dest: 'Sólheimajökull+to:Amtmann Residence' },
-            weather: { condition: 'snow', temp: '-4', feelsLike: '-9', desc: '平安夜聖誕氣氛' },
-            items: [
-              {
-                id: '13-1', name: '索爾黑馬冰川 (Sólheimajökull)', category: '景點', time: '10:00', hours: '24小時', ticket: '免費',
-                notes: '近距離觀賞壯麗冰川與黑色火山灰交錯景致',
-                detail: '從 Mýrdalsjökull 冰帽延伸出來的著名冰川舌，沿著步道可近距離觀賞萬年冰川與火山噴發留下的黑色火山灰相間交錯之獨特景觀。',
-                image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 40, transitMode: 'drive'
-              },
-              {
-                id: '13-2', name: '平安夜聖誕大餐 (Christmas Eve Dinner)', category: '美食', time: '18:30', hours: '需提前預約',
-                notes: '體驗冰島傳統平安夜節慶料理與氣氛',
-                detail: '12月24日平安夜是冰島全年最重要的家庭團聚節日，特別預約餐廳享用溫馨冰島節慶聖誕晚餐（如燻羊肉 Hangikjöt、煙燻燻肉等美味）。',
-                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
-                transitTime: 20, transitMode: 'drive'
-              },
-              {
-                id: '13-3', name: 'Amtmann Residence by Heimaleiga', category: '住宿', time: '入住',
-                notes: 'Hveragerði 一帶，方便隔日前往 Blue Lagoon',
-                detail: '入住 Amtmann Residence，位置極佳，方便明日前往藍湖溫泉與雷克雅維克。',
-                link: 'https://www.google.com/maps/place/Amtmann+Residence+by+Heimaleiga/@63.9867546,-21.7908208,8.11z',
-                image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/25 (五)', weekday: 'FRI', dateNum: '25', location: '藍湖溫泉與聖誕散步',
-            mapRoute: { origin: 'Amtmann Residence', dest: 'Blue Lagoon Iceland+to:Laugavegur+to:Downtown Reykjavík Apartments' },
-            weather: { condition: 'cloud', temp: '1', feelsLike: '-3', desc: '地熱溫泉療癒' },
-            items: [
-              {
-                id: '14-1', name: '藍湖溫泉 (Blue Lagoon)', category: '景點', time: '10:00', hours: '需提前預約', ticket: '約 €90 起',
-                notes: '富含二氧化矽夢幻奶藍色地熱溫泉，舒緩旅途疲勞',
-                detail: '位於黑色火山熔岩原中的夢幻奶藍色地熱溫泉。富含二氧化矽與礦物質，敷上天然白矽泥面膜，在蒸氣繚繞中泡湯徹底放鬆身心。',
-                image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-                transitTime: 40, transitMode: 'drive'
-              },
-              {
-                id: '14-2', name: '雷克雅維克市區聖誕散步', category: '景點', time: '15:00', hours: '自由散步', ticket: '免費',
-                notes: '欣賞市中心聖誕燈飾與冬季街景，悠閒散步',
-                detail: '返回雷克雅維克市區，漫步於點亮璀璨聖誕燈飾的市中心街道與托寧湖畔（Tjörnin），感受北歐雪國濃厚的節慶溫馨氛圍。',
-                image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
-                transitTime: 10, transitMode: 'walk'
-              },
-              {
-                id: '14-3', name: 'Downtown Reykjavík Apartments', category: '住宿', time: '入住',
-                notes: '雷克雅維克市中心公寓',
-                detail: '入住 Downtown Reykjavík Apartments，整理行李準備明日返台。',
-                link: 'https://www.google.com/maps/place/Downtown+Reykjav%C3%ADk+Apartments/@64.1410605,-21.9142288,16z',
-                image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'drive'
-              }
-            ]
-          },
-          {
-            dateStr: '12/26 (六)', weekday: 'SAT', dateNum: '26', location: '歸途 (雷克雅維克 ➔ 台北)',
-            mapRoute: { origin: 'Downtown Reykjavík Apartments', dest: 'Keflavík International Airport' },
-            weather: { condition: 'snow', temp: '0', feelsLike: '-5', desc: '滿載極光回憶返家' },
-            items: [
-              {
-                id: '15-1', name: '於 KEF 機場歸還車輛', category: '其他', time: '14:00 前',
-                notes: '於 KEF 凱夫拉維克機場辦理還車手續與退稅',
-                detail: '驅車前往 KEF 機場租車櫃檯辦理還車手續，檢查車況並至機場辦理離境退稅。',
-                image: 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=800&q=80',
-                transitTime: 15, transitMode: 'walk'
-              },
-              {
-                id: '15-2', name: '冰島航空 / 華航（經倫敦轉機）', category: '航班', time: '16:20 KEF 起飛',
-                notes: '16:20 起飛 ➔ 隔日 18:35 抵達桃園機場 (TPE)',
-                detail: '搭乘 16:20 航班從雷克雅維克起飛，經倫敦轉機返台（隔日 18:35 抵達 TPE）。帶著滿滿芬蘭拉普蘭極光、聖誕老人村與冰島火山冰川的美好記憶返家！',
-                image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
-                transitTime: 0, transitMode: 'drive'
-              }
-            ]
+
+            id: '1-1', name: '華航 / 芬蘭航空（經羅馬轉機）', category: '航班', time: '20:15–23:25 機場報到及起飛',
+
+            notes: '20:15 抵達機場，23:25 起飛。',
+
+            detail: '從桃園國際機場（TPE）第一航廈搭乘華航/芬蘭航空起飛，經羅馬轉機前往芬蘭赫爾辛基萬塔機場（HEL）。準備迎向北歐拉普蘭極光、聖誕老人村與冰島壯麗火山冰川之旅！',
+
+            image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
           }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/13 (日)', weekday: 'SUN', dateNum: '13', location: '赫爾辛基市區',
+
+        mapRoute: { origin: 'Helsinki Airport', dest: 'Scandic Grand Central Helsinki+to:Senate Square Helsinki+to:Ravintola Savotta' },
+
+        weather: { condition: 'snow', temp: '-2', feelsLike: '-6', desc: '降雪機率高' },
+
+        items: [
+
+          {
+
+            id: '2-1', name: 'Scandic Grand Central Helsinki', category: '住宿', time: '15:10–17:20', hours: '24小時',
+
+            notes: '15:10 抵達；領行李50分鐘、候車15分鐘、火車35分鐘、步行及入住30分鐘。',
+
+            detail: '15:10 飛抵赫爾辛基萬塔機場（HEL），搭乘機場快線前往市中心。入住座落於中央車站旁的 Scandic Grand Central，地理位置極佳，方便明日搭乘極光夜車。',
+
+            image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 35, transitMode: 'transit'
+
+          },
+
+          {
+
+            id: '2-2', name: '議會廣場聖誕市集 (Senate Square)', category: '景點', time: '17:35–18:00', hours: '依當日公告', ticket: '免費',
+
+            notes: '議會廣場聖誕市集，港口集市移至隔日。',
+
+            detail: '議會廣場聖誕市集，等待18:00聖露西亞遊行。港口市集移到隔日。',
+
+            image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 15, transitMode: 'walk'
+
+          },
+        {
+          id: '2-4', name: '聖露西亞遊行', category: '活動', time: '18:00–18:45',
+          notes: '議會廣場免費戶外遊行；室內加冕另需票券。班機延誤則跳過。', detail: '議會廣場免費戶外遊行；室內加冕另需票券。班機延誤則跳過。',
+          link: 'https://www.folkhalsan.fi/fi/uutisia/2026/november/suomen-lucia-2026', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+          transitTime: 0, transitMode: 'walk'
+        },
+
+          {
+
+            id: '2-3', name: 'Ravintola Savotta 晚餐', category: '美食', time: '19:00–20:30', hours: '17:00 - 23:00',
+
+            notes: '遊行結束後用餐，建議19:00或19:30訂位。',
+
+            detail: '位於議會廣場對面的知名傳統芬蘭餐廳。室內裝潢充滿濃郁的芬蘭森林懷舊風格，必點香煎鹿肉（Reindeer）、北歐野生莓果與香煎鮭魚料理。',
+
+            image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 5, transitMode: 'walk'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/14 (一)', weekday: 'MON', dateNum: '14', location: '赫爾辛基 ➔ 極光夜車',
+
+        mapRoute: { origin: 'Scandic Grand Central Helsinki', dest: 'Helsinki Cathedral+to:Market Square Helsinki+to:Senate Square Helsinki+to:Temppeliaukio Church+to:Oodi Helsinki+to:Helsinki Central Station' },
+
+        weather: { condition: 'snow', temp: '-4', feelsLike: '-8', desc: '寒冷有雪' },
+
+        items: [
+
+          {
+
+            id: '3-1', name: '赫爾辛基大教堂 (Helsinki Cathedral)', category: '景點', time: '10:00–10:35', hours: '參觀主堂免費', ticket: '免費',
+
+            notes: '09:30退房寄放行李；步行15分鐘。',
+
+            detail: '赫爾辛基最具代表性的地標，聳立於議會廣場高處的淡綠色圓頂白色教堂，建於 1830 年代，呈現莊嚴典雅的新古典主義建築美學。',
+
+            image: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 15, transitMode: 'walk'
+
+          },
+        {
+          id: '3-4', name: '港口集市廣場與聖誕市集', category: '景點', time: '10:45–12:35',
+          notes: '10:45港口散步；11:35議會廣場聖誕市集午餐。', detail: '10:45港口散步；11:35議會廣場聖誕市集午餐。',
+          link: 'https://tuomaanmarkkinat.fi/en/', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+          transitTime: 10, transitMode: 'walk'
+        },
+
+          {
+
+            id: '3-2', name: '岩石教堂 (Temppeliaukio Church)', category: '景點', time: '13:05–13:50', hours: '10:00 - 17:00', ticket: '約 €8',
+
+            notes: '搭電車及步行約30分鐘。',
+
+            detail: '直接開鑿於天然巨大花崗岩石塊中的現代建築傑作。上方由 180 條放射狀銅製金屬圓頂支撐，天然岩壁與光線交織出絕美的光影與極佳音樂聲學效果。',
+
+            image: 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 30, transitMode: 'transit'
+
+          },
+        {
+          id: '3-5', name: 'Oodi 中央圖書館', category: '景點', time: '14:15–15:15',
+          notes: '免費室內參觀；15:15購物，16:30晚餐。', detail: '免費室內參觀；15:15購物，16:30晚餐。',
+          link: 'https://oodihelsinki.fi/en/', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+          transitTime: 25, transitMode: 'walk'
+        },
+
+          {
+
+            id: '3-3', name: '搭乘 VR 極光夜車 (VR Night Train)', category: '航班', time: '夜間（依車票）', hours: '車程約 12 小時', ticket: '臥舖車廂',
+
+            notes: '提前30分鐘到月台，實際班次待確認。',
+
+            detail: '搭乘芬蘭鐵路 VR 雙層極光臥舖夜車前往北極圈大門——羅瓦涅米（Rovaniemi）。臥舖車廂配備獨立洗手台，在火車鐵道運轉聲中一路穿越雪原北上。',
+
+            image: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 5, transitMode: 'transit'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/15 (二)', weekday: 'TUE', dateNum: '15', location: '羅瓦涅米 Rovaniemi',
+
+        mapRoute: { origin: 'Rovaniemi Railway Station', dest: 'Villa Onnela Rovaniemi+to:Arktikum+to:Lordi Square Rovaniemi' },
+
+        weather: { condition: 'snow', temp: '-10', feelsLike: '-15', desc: '極圈嚴寒' },
+
+        items: [
+
+          {
+
+            id: '4-2', name: 'Arktikum 極圈博物館', category: '景點', time: '10:00–12:00', hours: '10:00 - 18:00', ticket: '約 €18',
+
+            notes: '早餐後步行至博物館，12:00–13:00午餐。',
+
+            detail: '頂部為長達 172 公尺長廊玻璃長廊的標誌性建築。深入展示拉普蘭地區原住民薩米人（Sámi）的生活文化、北極生態圈與北極光形成科學原理。',
+
+            image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 20, transitMode: 'drive'
+
+          },
+        {
+
+            id: '4-3', name: '羅瓦涅米市區探索', category: '景點', time: '13:15–14:30', hours: '自由參觀', ticket: '免費',
+
+            notes: '市區散步及超市補給，之後搭車入住。',
+
+            detail: '漫步於羅瓦涅米市中心，體驗這個被譽為「聖誕老人故鄉」的雪國小鎮，逛逛當地的工藝品店、地標地圖軸線與極地咖啡館。',
+
+            image: 'https://images.unsplash.com/photo-1518081461904-9d8f136351c2?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 15, transitMode: 'walk'
+
+          },
+        {
+
+            id: '4-1', name: 'Villa Onnela', category: '住宿', time: '15:00–17:30', hours: '附桑拿/WiFi/停車',
+
+            notes: '07:30暫定抵達車站，先在市區寄放行李、早餐；下午入住。',
+
+            detail: '約 07:30 抵達羅瓦涅米車站。前往 Villa Onnela 辦理入住或寄存行李。木屋提供芬蘭傳統桑拿 Sauna、Wi-Fi 與免費停車，溫馨舒適。',
+
+            link: 'https://www.google.com/maps/place/Villa+Onnela+with+sauna,wifi+and+parking+near+Santa+Village/@66.5187225,25.8000603,17z',
+
+            image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 25, transitMode: 'drive'
+
+          },
+        {
+
+            id: '4-4', name: '夜間追極光雪上摩托車體驗 (Snowmobile Aurora)', category: '活動', time: '19:30–22:30', hours: '預約制', ticket: '含防寒裝備',
+
+            notes: '18:30出發及換裝，23:00前返回住宿；場次待確認。',
+
+            detail: '換上專業保暖防寒連身衣與靴子，在夜幕低垂時駕駛雪上摩托車（Snowmobile）馳騁於拉普蘭寂靜雪原，在森林與凍湖畔等待綠色極光光束浮現。',
+
+            image: 'https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 45, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/16 (三)', weekday: 'WED', dateNum: '16', location: '聖誕老人村',
+
+        mapRoute: { origin: 'Villa Onnela Rovaniemi', dest: 'Santa Claus Village+to:Husky Park Rovaniemi+to:Santas Salmon Place' },
+
+        weather: { condition: 'snow', temp: '-8', feelsLike: '-13', desc: '北極圈降雪' },
+
+        items: [
+
+          {
+
+            id: '5-1', name: 'Villa Onnela', category: '住宿', time: '08:30–09:30',
+
+            notes: '早餐及準備裝備，續住。',
+
+            detail: '繼續入住 Villa Onnela，享有極地溫馨木屋空間與芬蘭桑拿體驗。',
+
+            link: 'https://www.google.com/maps/place/Villa+Onnela+with+sauna,wifi+and+parking+near+Santa+Village/@66.5187225,25.8000603,17z',
+
+            image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '5-2', name: '聖誕老人村 (Santa Claus Village)', category: '景點', time: '10:00–12:00', hours: '10:00 - 17:00', ticket: '園區免費入場',
+
+            notes: '09:30出發，聖誕老人合照、北極圈、郵局；12:00午餐。',
+
+            detail: '踏入夢幻聖誕老人村，親腳跨越地上標示的北極圈緯度線（Latitude 66°33′07″ N）並購買認證證書！在聖誕老人總局郵局寄出蓋有北極圈郵戳的限定明信片。',
+
+            image: 'https://images.unsplash.com/photo-1543258103-a62bdc069871?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'walk'
+
+          },
+
+          {
+
+            id: '5-3', name: '哈士奇雪橇拉車體驗 (Husky Safari)', category: '活動', time: '13:30–15:00', hours: '預約制', ticket: '體驗票',
+
+            notes: '13:00出發報到；場次待確認。',
+
+            detail: '前往村內的 Husky Park，乘坐充滿活力的阿拉斯加哈士奇犬隊拉動的雪橇，在白雪皚皚的松樹林與極圈雪道中高速奔馳，體驗經典北極冬季活動。',
+
+            image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'walk'
+
+          },
+
+          {
+
+            id: '5-4', name: 'Santa\'s Salmon Place / Salmon House', category: '美食', time: '16:15–17:30', hours: '11:00 - 17:00',
+
+            notes: '含候位，之後搭車回住宿。',
+
+            detail: '位於聖誕老人村內的傳統薩米木造帳篷（Kota）。在中央營火上使用木柴現場慢火直烤厚切鮮鮭魚，皮酥肉嫩多汁，搭配特製馬鈴薯沙拉是絕頂美味。',
+
+            image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 5, transitMode: 'walk'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/17 (四)', weekday: 'THU', dateNum: '17', location: '馴鹿雪橇與極光專線',
+
+        mapRoute: { origin: 'Villa Onnela Rovaniemi', dest: 'Santa Claus Reindeer Rovaniemi+to:Villa Onnela Rovaniemi' },
+
+        weather: { condition: 'snow', temp: '-12', feelsLike: '-17', desc: '極夜適合追光' },
+
+        items: [
+
+          {
+
+            id: '6-1', name: 'Villa Onnela', category: '住宿', time: '08:30–09:30',
+
+            notes: '早餐，續住第三晚。',
+
+            detail: '續住 Villa Onnela。準備體驗最傳統的薩米馴鹿雪橇與夜間極光追尋。',
+
+            link: 'https://www.google.com/maps/place/Villa+Onnela+with+sauna,wifi+and+parking+near+Santa+Village/@66.5187225,25.8000603,17z',
+
+            image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '6-2', name: '薩米人馴鹿農場巡禮與雪橇體驗', category: '活動', time: '10:30–12:30', hours: '預約制', ticket: '導覽體驗票',
+
+            notes: '09:30出發，接駁15–45分鐘；場次待確認。',
+
+            detail: '拜訪傳統薩米馴鹿農場，親手餵食可愛的北極馴鹿。搭乘被稱為「拉普蘭計程車」的馴鹿拉雪橇，以優雅而平穩的速度穿越夢幻森林雪原。',
+
+            image: 'https://images.unsplash.com/photo-1543258103-a62bdc069871?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 45, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '6-3', name: '極地夜空追光體驗', category: '景點', time: '18:00–20:00', hours: '夜間', ticket: '免費',
+
+            notes: '選配，20:00前返回，21:00就寢；避免隔天疲勞駕駛。',
+
+            detail: '遠離羅瓦涅米市區光害，前往無遮蔽的結冰湖畔或森林高地。在寒冷而繁星點點的極夜天空下，圍著營火喝著熱漿果汁，靜靜注視夜空等待歐若拉女神的舞蹈。',
+
+            image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 20, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/18 (五)', weekday: 'FRI', dateNum: '18', location: '雷克雅維克市區巡禮',
+
+        mapRoute: { origin: 'Keflavík International Airport', dest: 'EIR Apartments Reykjavík+to:Brauð %26 Co+to:Sun Voyager+to:Hallgrímskirkja' },
+
+        weather: { condition: 'rain', temp: '2', feelsLike: '-3', desc: '冰島強風雨雪' },
+
+        items: [
+
+          {
+
+            id: '7-1', name: '羅瓦涅米 (RVN) 飛往 雷克雅維克 (KEF)', category: '航班', time: '05:20 RVN → 09:15 KEF',
+
+            notes: '02:30起床，03:00計程車出發，03:20抵機場，04:35最晚報到。AY0540 05:20–06:35 RVN→HEL；轉機45分鐘；AY0991 07:20–09:15 HEL→KEF。確認聯程及行李直掛。09:15–10:00領行李，10:00–11:15取車，11:15–12:15開往市區。',
+
+            detail: '搭乘極地航班飛抵冰島凱夫拉維克國際機場（KEF）。取預約好的 4WD SUV 並確認雪地釘胎（Spike Tires），為後續冰島自駕提供最高安全保障。',
+
+            image: 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 20, transitMode: 'drive'
+
+          },
+        {
+
+            id: '7-5', name: '哈爾格林姆教堂 (Hallgrímskirkja)', category: '景點', time: '13:15–14:00', hours: '10:00 - 17:00', ticket: '教堂免費/塔樓另購',
+
+            notes: '12:15–13:15午餐，趁白天登塔。',
+
+            detail: '高 74.5 公尺，建築外觀靈感源自冰島特有的冷卻玄武岩熔岩柱。搭乘電梯登上頂樓塔樓，可 360 度俯瞰雷克雅維克市區著名的彩色屋頂與海岸景象。',
+
+            image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'walk'
+
+          },
+        {
+
+            id: '7-3', name: 'Brauð & Co 肉桂捲', category: '美食', time: '14:00–14:30', hours: '06:30 - 18:00',
+
+            notes: '教堂後步行5分鐘。',
+
+            detail: '外觀為繽紛塗鴉彩繪建築。招牌現烤肉桂捲（Cinnamon Roll）外酥內軟，黑糖與肉桂香氣極濃郁，是冰島最受好評的烘焙名店！',
+
+            image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 5, transitMode: 'walk'
+
+          },
+        {
+
+            id: '7-2', name: 'EIR Apartments 辦理入住', category: '住宿', time: '14:30–15:15',
+
+            notes: '入住或寄放行李，依住宿規定。',
+
+            detail: '位於雷克雅維克市中心的優質公寓，距離哈爾格林姆教堂僅幾步之遙，設有完善廚房設備。',
+
+            image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 5, transitMode: 'drive'
+
+          },
+        {
+
+            id: '7-4', name: 'Sun Voyager 太陽航海者 (Sólfarið)', category: '景點', time: '15:15–15:40', hours: '24小時', ticket: '免費',
+
+            notes: '含步行，視日照調整。',
+
+            detail: '座落於海岸線邊的不鏽鋼雕塑，造形宛如維京海盜船骨架，面向大西洋與遠方雪山，象徵光芒、希望與探索未知的精神。',
+
+            image: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'walk'
+
+          },
+        {
+          id: '7-7', name: 'Harpa 音樂廳', category: '景點', time: '15:40–16:15',
+          notes: '海岸玻璃建築，天黑也可欣賞。', detail: '海岸玻璃建築，天黑也可欣賞。',
+          link: 'https://www.harpa.is/en', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+          transitTime: 10, transitMode: 'walk'
+        },
+        {
+
+            id: '7-6', name: 'Laugavegur 購物街與冰島美食巡禮', category: '購物', time: '16:15–17:30', hours: '10:00 - 18:00', ticket: '免費',
+
+            notes: '17:30採買，18:30晚餐，20:00休息。',
+
+            detail: '雷克雅維克最熱鬧的主幹道！建議今日完成購物（如冰島羊毛衫 Lopapeysa、戶外品牌 66°North），並可品嚐 Svarta Kaffið 麵包盅濃湯、BBP 熱狗與 Messinn 鐵鍋魚料理。',
+
+            image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'walk'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/19 (六)', weekday: 'SAT', dateNum: '19', location: '斯奈山半島 Snæfellsnes',
+
+        mapRoute: { origin: 'EIR Apartments Reykjavík', dest: 'Borgarnes+to:Kirkjufell+to:Djúpalónssandur+to:Arnarstapi+to:Búðakirkja+to:Bjarnarfoss+to:Ytri Tunga+to:Borgarnes+to:EIR Apartments Reykjavík' },
+
+        weather: { condition: 'snow', temp: '0', feelsLike: '-5', desc: '海邊陣風強勁' },
+
+        items: [
+
+          {
+
+            id: '8-1', name: 'EIR Apartments', category: '住宿', time: '07:30 出發',
+
+            notes: 'Borgarnes 09:00–09:20休息；反向環島優先教會山。',
+
+            detail: '今日早出晚歸，進行斯奈山半島反向環島一日遊，利用天亮前時間開車前往，把有限日照留給景點，晚上返回 EIR Apartments 休息。',
+
+            image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
+          },
+        {
+
+            id: '8-7', name: 'Kirkjufell 教會山與 Kirkjufellsfoss 瀑布', category: '景點', time: '11:00–11:45', hours: '24小時', ticket: '部分停車場收費',
+
+            notes: '從Borgarnes出發約100分鐘。',
+
+            detail: '圓錐狀獨立山峰搭配面前的雙層 Kirkjufellsfoss 瀑布，是冰島曝光率最高的標誌景點，也是熱門美劇《權力遊戲》中的「箭頭山」。',
+
+            image: 'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 100, transitMode: 'drive'
+
+          },
+        {
+
+            id: '8-6', name: 'Djúpalónssandur 黑石沙灘', category: '景點', time: '12:40–13:10', hours: '24小時', ticket: '免費',
+
+            notes: '道路及浪況不佳則取消。',
+
+            detail: '遍布黑色圓形火山鵝卵石的海灘，沙灘上散落著 1948 年英國沉船殘骸，並保留過去海賊與漁民測試手臂力量的四塊試力石（Lift Stone）。',
+
+            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 55, transitMode: 'drive'
+
+          },
+        {
+
+            id: '8-5', name: 'Arnarstapi 海蝕柱與天然拱門', category: '景點', time: '13:40–14:30', hours: '24小時', ticket: '免費',
+
+            notes: '海岸步道，午餐建議自備。',
+
+            detail: '沿著海岸步道欣賞大西洋浪花拍打壯麗玄武岩懸崖，其中 Gatklettur 天然海蝕石拱門是斯奈山半島最具代表性的海岸地形。',
+
+            image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 30, transitMode: 'drive'
+
+          },
+        {
+
+            id: '8-4', name: 'Búðakirkja 黑教堂', category: '景點', time: '14:55–15:15', hours: '24小時', ticket: '免費',
+
+            notes: '黑教堂拍照。',
+
+            detail: '冰島最著名的孤獨黑教堂。極簡黑色木構造在茫茫白雪與黑色熔岩地貌襯托下，呈現極致的北歐冷冽孤寂美感。',
+
+            image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 25, transitMode: 'drive'
+
+          },
+        {
+
+            id: '8-3', name: 'Bjarnarfoss 瀑布', category: '景點', time: '15:25–15:40', hours: '24小時', ticket: '免費',
+
+            notes: '視光線停留。',
+
+            detail: '瀑布從高聳玄武岩山崖垂直奔流而下，冬季四周被白雪與冰柱包圍，站在停車場即可將整座玄武岩冰瀑盡收眼底。',
+
+            image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'drive'
+
+          },
+        {
+
+            id: '8-2', name: 'Ytri-Tunga 海豹沙灘', category: '景點', time: '16:05–16:25', hours: '24小時', ticket: '免費',
+
+            notes: '光線不足取消；17:40抵Borgarnes晚餐，20:10回住宿。',
+
+            detail: '冰島少見的金黃色沙灘。沿著礁石岸邊漫步，極有機會近距離目睹野生港海豹與灰海豹趴在海中黑色礁石上曬太陽。',
+
+            image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 25, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/20 (日)', weekday: 'SUN', dateNum: '20', location: '黃金圈 & 蒂芬尼藍瀑布',
+
+        mapRoute: { origin: 'EIR Apartments Reykjavík', dest: 'Thingvellir National Park+to:Bruarfoss+to:Geysir+to:Gullfoss+to:Kerid Crater+to:EIR Apartments Reykjavík' },
+
+        weather: { condition: 'cloud', temp: '-1', feelsLike: '-6', desc: '多雲陰天' },
+
+        items: [
+
+          {
+
+            id: '9-1', name: 'EIR Apartments', category: '住宿', time: '08:45 出發',
+
+            notes: '續住第三晚。',
+
+            detail: '黃金圈一日遊後返回雷克雅維克市區住宿。',
+
+            image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '9-2', name: '辛格韋德利國家公園 (Þingvellir)', category: '景點', time: '09:50–10:40', hours: '09:00 - 17:00', ticket: '國家公園免費/停車費',
+
+            notes: '曙暮光時段參觀。',
+
+            detail: '站在歐亞板塊與北美洲板塊張裂形成的巨大裂谷（Silfra）中，這裡更是西元 930 年世界上第一個民主議會（Alþingi）的誕生地。',
+
+            image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 65, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '9-3', name: 'Brúarfoss 蒂芬尼藍瀑布', category: '景點', time: '11:30–12:00', hours: '24小時', ticket: '免費/停車費',
+
+            notes: '導航至近瀑布的停車場。',
+
+            detail: '冰川河水從黑色火山岩裂縫集中奔流而下，河水呈現驚人而純淨的蒂芬尼藍（Tiffany Blue），被譽為冰島最浪漫秘境瀑布。',
+
+            image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 50, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '9-4', name: 'Efsti-Dalur II 農場 Gelato 冰淇淋', category: '美食', time: '12:15–12:55', hours: '10:00 - 20:00',
+
+            notes: '農場午餐及冰淇淋。',
+
+            detail: '家族經營的在地有機乳牛農場，可以直接透過玻璃窗觀賞可愛牛隻，品嚐使用自家新鮮牛乳製作的純手工 Gelato 冰淇淋。',
+
+            image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 15, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '9-5', name: '蓋錫爾間歇泉 (Geysir & Strokkur)', category: '景點', time: '13:15–13:55', hours: '24小時', ticket: '免費',
+
+            notes: '間歇泉。',
+
+            detail: '世界間歇泉英文名「Geyser」的發源地！活躍的 Strokkur 間歇泉約每 6～10 分鐘便會噴出高達 20 至 40 公尺的滾燙水柱。',
+
+            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 20, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '9-6', name: 'Gullfoss 黃金瀑布', category: '景點', time: '14:10–14:45', hours: '24小時', ticket: '免費',
+
+            notes: '黃金瀑布。',
+
+            detail: 'Hvítá 冰川河水猛烈墜入 32 公尺深的雙層峽谷中，冬季四周懸崖結滿冰柱，磅礡水霧在冬日陽光下常折射出閃耀彩虹。',
+
+            image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 15, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '9-7', name: 'Kerið Crater 火山口湖與 Selfoss 晚餐', category: '景點', time: '15:40–16:05', hours: '日照時間內', ticket: '約 ISK 600',
+
+            notes: '光線不足取消火山口湖；16:30–17:45 Selfoss晚餐，18:50返住宿。',
+
+            detail: '形成的火山口湖，陡峭的紅褐色火山岩壁與綠色苔蘚環繞著湖泊。返程至 Selfoss 的 Kaffi Krús 享用北歐手作披薩與漢堡。',
+
+            image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 55, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/21 (一)', weekday: 'MON', dateNum: '21', location: '南岸瀑布 ➔ 維克小鎮',
+
+        mapRoute: { origin: 'EIR Apartments Reykjavík', dest: 'Seljalandsfoss+to:Skógafoss+to:Reynisfjara Black Sand Beach+to:Víkurkirkja+to:Vík Apartments' },
+
+        weather: { condition: 'rain', temp: '1', feelsLike: '-4', desc: '瀑布水氣大' },
+
+        items: [
+
+          {
+
+            id: '10-1', name: '塞里雅蘭瀑布 (Seljalandsfoss)', category: '景點', time: '10:00–10:30', hours: '24小時', ticket: '景點免費/停車費',
+
+            notes: '07:45退房出發。',
+
+            detail: '高約 60 公尺的狹長瀑布從懸崖飛瀉而下，冬季周圍岩壁結滿晶瑩冰柱。（特別提醒：冬季後方步道常因結冰封閉，請於前方觀景台安全欣賞）。',
+
+            image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 135, transitMode: 'drive'
+
+          },
+        {
+          id: '10-7', name: 'Gljúfrabúi 隱藏瀑布', category: '景點', time: '10:45–11:10',
+          notes: '步行10–15分鐘；結冰時僅在安全處觀賞，11:25回停車場。', detail: '步行10–15分鐘；結冰時僅在安全處觀賞，11:25回停車場。',
+          link: 'https://www.visiticeland.com/', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+          transitTime: 15, transitMode: 'walk'
+        },
+
+          {
+
+            id: '10-2', name: '斯科加瀑布 (Skógafoss)', category: '景點', time: '12:00–12:45', hours: '24小時', ticket: '免費',
+
+            notes: '由隱藏瀑布停車場出發。',
+
+            detail: '寬達 25 公尺、高 60 公尺的巨型水牆瀑布！磅礡水氣在天氣晴朗時極易產生絕美雙彩虹，亦可沿著側邊階梯登上頂端觀景台。',
+
+            image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 35, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '10-3', name: 'Sveitagrill Míu / Mia’s Country Van 炸魚餐車', category: '美食', time: '12:45–13:30', hours: '12:00 - 16:00',
+
+            notes: '營業待確認，備用其他餐廳。',
+
+            detail: '位在 Skógar 附近的超人氣紅色小餐車，使用當日現捕鮮白肉魚搭配酥脆麵衣與炸薯條，是南岸最完美的溫暖午餐。',
+
+            image: 'https://images.unsplash.com/photo-1526234362852-3f71f0040355?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 5, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '10-4', name: 'Reynisfjara Black Sand Beach 黑沙灘', category: '景點', time: '14:10–14:50', hours: '24小時', ticket: '免費',
+
+            notes: '遵守警示及封閉區域。',
+
+            detail: '世界最美的黑沙灘之一。壯觀的柱狀玄武岩牆與海中屹立的 Reynisdrangar 海蝕柱。（特別提醒：此處有極度危險的 Sneaker Waves 瘋狗浪，請務必保持距離）。',
+
+            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 40, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '10-5', name: '維克紅頂教堂 (Víkurkirkja) & Vík 小鎮', category: '景點', time: '15:10–15:35', hours: '24小時', ticket: '免費',
+
+            notes: '紅頂教堂。',
+
+            detail: '座落於維克小鎮山丘上的精緻紅頂教堂，是南岸地標，更是拍照俯瞰 Vík 小鎮、黑色沙灘與遠方海蝕柱的絕佳視角。',
+
+            image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 20, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '10-6', name: 'Vík Apartments 入住', category: '住宿', time: '15:35–16:00',
+
+            notes: '16:00採買，17:00晚餐。',
+
+            detail: '入住 Vík Apartments，配備齊全廚房，方便準備晚餐與休養體力。',
+
+            image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 5, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/22 (二)', weekday: 'TUE', dateNum: '22', location: '羽毛河峽谷與東南岸秘境',
+
+        mapRoute: { origin: 'Vík Apartments', dest: 'Fjaðrárgljúfur+to:Kirkjubæjarklaustur+to:Stjórnarfoss+to:Kirkjugólf+to:Fossálar Waterfall+to:Vík Apartments' },
+
+        weather: { condition: 'snow', temp: '-3', feelsLike: '-9', desc: '控制車程保留體力' },
+
+        items: [
+
+          {
+
+            id: '11-1', name: 'Vík Apartments', category: '住宿', time: '09:00 出發',
+
+            notes: '續住；天氣備用日。',
+
+            detail: '續住 Vík Apartments，今日行程距離適中，晚上早點休息準備明日長途冰河湖探索。',
+
+            image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
+          },
+        {
+
+            id: '11-3', name: '羽毛河峽谷 (Fjaðrárgljúfur)', category: '景點', time: '10:20–11:30', hours: '停留 1~1.5 小時', ticket: '免費',
+
+            notes: '道路與步道開放才前往。',
+
+            detail: '經過數萬年冰河融水侵蝕雕琢而成的巨大蛇形峽谷，深達百公尺。冬日積雪覆蓋於綠苔綠岩壁上，展現出絕無僅有的蒼茫荒野感。',
+
+            image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 80, transitMode: 'drive'
+
+          },
+        {
+
+            id: '11-4', name: 'Kirkjubæjarklaustur 小鎮 & Stjórnarfoss', category: '景點', time: '11:50–13:45', hours: '休息補給', ticket: '免費',
+
+            notes: '11:50午餐加油；12:50 Stjórnarfoss；13:25 Kirkjugólf。',
+
+            detail: '在南岸補給小鎮享用午餐並將車輛加滿油！順遊圓弧峽谷造型的 Stjórnarfoss 瀑布與天然柱狀玄武岩排列而成的 Kirkjugólf「教堂地板」。',
+
+            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 20, transitMode: 'drive'
+
+          },
+        {
+
+            id: '11-2', name: 'Fossálar 瀑布 (Fossálar Waterfall)', category: '景點', time: '14:10–14:30', hours: '停留 20~30 分鐘', ticket: '免費',
+
+            notes: '14:30出發，16:15返回Vík。',
+
+            detail: '座落於環島 1 號公路旁邊的精巧瀑布，冬季周邊被雪原與冰霜包圍，非常適合當作驅車前往峽谷途中的極佳停靠點。',
+
+            image: 'https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 25, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/23 (三)', weekday: 'WED', dateNum: '23', location: '瓦特納冰川與冰河湖',
+
+        mapRoute: { origin: 'Vík Apartments', dest: 'Jökulsárlón Glacier Lagoon+to:Diamond Beach+to:Fjallsárlón+to:Vík Apartments' },
+
+        weather: { condition: 'snow', temp: '-2', feelsLike: '-7', desc: '極致冰川探索' },
+
+        items: [
+
+          {
+
+            id: '12-1', name: 'Vík Apartments', category: '住宿', time: '05:45 出發',
+
+            notes: '09:30場次方案；若未訂建議10:30。07:10休息15分鐘，09:10抵集合點。',
+
+            detail: '結束冰河湖長途探險後返回 Vík Apartments 住宿。',
+
+            image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '12-2', name: '瓦特納冰川天然藍冰洞探險 (Ice Cave in Iceland)', category: '活動', time: '09:30–12:00', hours: '約 2.5 小時', ticket: '預約制導覽',
+
+            notes: '09:10報到；車程約190分鐘另加15分鐘休息。場次待確認。',
+
+            detail: '在 Jökulsárlón 集合，搭乘巨輪 Super Jeep 深入 Vatnajökull 冰川。戴上安全帽與冰爪走進自然形成的藍冰洞，親眼震撼於萬年湛藍冰層與光影色彩。',
+
+            link: 'https://www.icecaveiniceland.is/',
+
+            image: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 190, transitMode: 'walk'
+
+          },
+
+          {
+
+            id: '12-3', name: 'Jökulsárlón 傑古沙龍冰河湖', category: '景點', time: '12:30–13:15', hours: '24小時', ticket: '免費/停車費',
+
+            notes: '12:00簡單午餐。',
+
+            detail: '冰島最閃耀的瑰寶！廣闊的冰河湖上漂浮著從瓦特納冰川崩落的巨型冰山，顏色從雪白、湛藍到帶有火山灰黑色紋路，夢幻至極。',
+
+            image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 0, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '12-4', name: 'Diamond Beach 鑽石冰沙灘', category: '景點', time: '13:25–14:10', hours: '24小時', ticket: '免費',
+
+            notes: '遵守海浪警示。',
+
+            detail: '冰河湖的冰塊漂流入大西洋後，被黑浪沖刷拋回黑色沙灘上。無數顆晶瑩剔透、巨型如水晶鑽石般的冰塊在黑沙上閃耀。',
+
+            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'drive'
+
+          },
+
+          {
+
+            id: '12-5', name: 'Fjallsárlón 小冰河湖', category: '景點', time: '14:35–15:10', hours: '24小時', ticket: '免費',
+
+            notes: '15:10返程，16:45休息晚餐，19:00回Vík。',
+
+            detail: '距離 Jökulsárlón 不遠的小冰河湖，氛圍更加寧靜，能近距離直接眺望巨大冰川舌直插湖面的震撼全景。',
+
+            image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 25, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/24 (四)', weekday: 'THU', dateNum: '24', location: '索爾黑馬冰川與平安夜',
+
+        mapRoute: { origin: 'Vík Apartments', dest: 'Sólheimajökull+to:Amtmann Residence' },
+
+        weather: { condition: 'snow', temp: '-4', feelsLike: '-9', desc: '平安夜聖誕氣氛' },
+
+        items: [
+
+          {
+
+            id: '13-1', name: '索爾黑馬冰川 (Sólheimajökull)', category: '景點', time: '09:45–11:00', hours: '24小時', ticket: '免費',
+
+            notes: '08:45退房，09:00出發；僅走開放觀景步道。',
+
+            detail: '從 Mýrdalsjökull 冰帽延伸出來的著名冰川舌，沿著步道可近距離觀賞萬年冰川與火山噴發留下的黑色火山灰相間交錯之獨特景觀。',
+
+            image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 45, transitMode: 'drive'
+
+          },
+        {
+
+            id: '13-3', name: 'Amtmann Residence by Heimaleiga', category: '住宿', time: '15:00–16:00',
+
+            notes: '11:00出發前往Selfoss，12:30午餐，13:15採買，14:00散步；住宿位於Selfoss。',
+
+            detail: '入住 Amtmann Residence，位置極佳，方便明日前往藍湖溫泉與雷克雅維克。',
+
+            link: 'https://www.google.com/maps/place/Amtmann+Residence+by+Heimaleiga/@63.9867546,-21.7908208,8.11z',
+
+            image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 90, transitMode: 'drive'
+
+          },
+        {
+
+            id: '13-2', name: '平安夜聖誕大餐 (Christmas Eve Dinner)', category: '美食', time: '18:30–20:30', hours: '需提前預約',
+
+            notes: '餐廳待預約，交通依餐廳位置。',
+
+            detail: '12月24日平安夜是冰島全年最重要的家庭團聚節日，特別預約餐廳享用溫馨冰島節慶聖誕晚餐（如燻羊肉 Hangikjöt、煙燻燻肉等美味）。',
+
+            image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 10, transitMode: 'drive'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/25 (五)', weekday: 'FRI', dateNum: '25', location: '藍湖溫泉與聖誕散步',
+
+        mapRoute: { origin: 'Amtmann Residence', dest: 'Blue Lagoon Iceland+to:Laugavegur+to:Downtown Reykjavík Apartments' },
+
+        weather: { condition: 'cloud', temp: '1', feelsLike: '-3', desc: '地熱溫泉療癒' },
+
+        items: [
+
+          {
+
+            id: '14-1', name: '藍湖溫泉 (Blue Lagoon)', category: '景點', time: '11:00–13:30', hours: '需提前預約', ticket: '約 €90 起',
+
+            notes: '08:30出發，10:15抵達，13:30洗澡午餐。票券時間優先。',
+
+            detail: '位於黑色火山熔岩原中的夢幻奶藍色地熱溫泉。富含二氧化矽與礦物質，敷上天然白矽泥面膜，在蒸氣繚繞中泡湯徹底放鬆身心。',
+
+            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 105, transitMode: 'drive'
+
+          },
+        {
+
+            id: '14-3', name: 'Downtown Reykjavík Apartments', category: '住宿', time: '15:30–16:00',
+
+            notes: '14:30藍湖出發，15:30抵住宿。',
+
+            detail: '入住 Downtown Reykjavík Apartments，整理行李準備明日返台。',
+
+            link: 'https://www.google.com/maps/place/Downtown+Reykjav%C3%ADk+Apartments/@64.1410605,-21.9142288,16z',
+
+            image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 60, transitMode: 'drive'
+
+          },
+        {
+
+            id: '14-2', name: '雷克雅維克市區聖誕散步', category: '景點', time: '16:00–17:30', hours: '自由散步', ticket: '免費',
+
+            notes: '入住後步行至湖畔及市區，17:30晚餐。',
+
+            detail: '返回雷克雅維克市區，漫步於點亮璀璨聖誕燈飾的市中心街道與托寧湖畔（Tjörnin），感受北歐雪國濃厚的節慶溫馨氛圍。',
+
+            image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 25, transitMode: 'walk'
+
+          }
+
+        ]
+
+      },
+
+      {
+
+        dateStr: '12/26 (六)', weekday: 'SAT', dateNum: '26', location: '歸途 (雷克雅維克 ➔ 台北)',
+
+        mapRoute: { origin: 'Downtown Reykjavík Apartments', dest: 'Keflavík International Airport' },
+
+        weather: { condition: 'snow', temp: '0', feelsLike: '-5', desc: '滿載極光回憶返家' },
+
+        items: [
+
+          {
+
+            id: '15-1', name: '於 KEF 機場歸還車輛', category: '其他', time: '12:30–13:15',
+
+            notes: '11:00出發，12:10加油，12:30還車。',
+
+            detail: '驅車前往 KEF 機場租車櫃檯辦理還車手續，檢查車況並至機場辦理離境退稅。',
+
+            image: 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 70, transitMode: 'walk'
+
+          },
+
+          {
+
+            id: '15-2', name: '冰島航空 / 華航（經倫敦轉機）', category: '航班', time: '16:20 KEF 起飛',
+
+            notes: '13:15–14:45報到退稅安檢；12/27 18:35抵台。',
+
+            detail: '搭乘 16:20 航班從雷克雅維克起飛，經倫敦轉機返台（隔日 18:35 抵達 TPE）。帶著滿滿芬蘭拉普蘭極光、聖誕老人村與冰島火山冰川的美好記憶返家！',
+
+            image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
+
+            transitTime: 15, transitMode: 'drive'
+
+          }
+
+        ]
+
+      }
+
+    ]);
         ]);
 
         const currentDay = computed(() => itineraryData.value[selectedDayIndex.value]);
